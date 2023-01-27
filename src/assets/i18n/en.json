@@ -75,5 +75,25 @@
   "footer": {
     "grade": "2º Cross-Platform Application Development",
     "author": "By Natalia Castillo"
+  },
+  "validators":{
+    "passwordMatch": "Passwords do not match",
+    "passwordProto": "At least 8 characters, one uppercase letter, one lowercase letter and one number",
+    "email": "You must introduce a valid email"
+  },
+  "login":{
+      "title":"Sign in",
+      "email":"Email",
+      "password":"Password",
+      "send":"Send"
+  },
+  "register":{
+      "title":"Register",
+      "register":"I want to register",
+      "name":"Complete Name",
+      "email":"Email",
+      "password":"Password",
+      "confirm_password":"Repeat password",
+      "send":"Send"
   }
 }

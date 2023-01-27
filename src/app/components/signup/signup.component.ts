@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { PasswordValidation } from 'src/app/core/utils/password-validator';
@@ -8,7 +8,7 @@ import { PasswordValidation } from 'src/app/core/utils/password-validator';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent {
 
   form:FormGroup;
   constructor(
@@ -22,8 +22,6 @@ export class SignupComponent implements OnInit {
       confirmPassword:["", Validators.required]
     },{validator:[PasswordValidation.passwordMatch, PasswordValidation.passwordProto]});
   }
-
-  ngOnInit() {}
 
   onRegister(){
     this.modalCtrl.dismiss({

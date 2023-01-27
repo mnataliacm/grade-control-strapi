@@ -22,8 +22,7 @@ export class SigninComponent implements OnInit {
     this.form = this.formBuilder.group({
       identifier:["", [Validators.required, Validators.email]],
       password:["", Validators.required]
-    });
-    
+    });   
   }
 
   ngOnInit() {}
@@ -39,11 +38,9 @@ export class SigninComponent implements OnInit {
         if(response.role=='ok'){
           await this.user.register(response.data);
           this.router.navigate(['folder/Home'], {replaceUrl:true});
-        }
-        
+        }       
       } catch (error) {
-        console.log(error);
-  
+        console.log(error);  
       }
     });
     modal.present();
@@ -55,17 +52,14 @@ export class SigninComponent implements OnInit {
       this.router.navigate(['folder/Home'], {replaceUrl:true});
     } catch (error) {
       console.log(error);
-
-    }
-    
+    }    
   }
 
   hasFormError(error: string){
     return this.form?.errors && Object.keys(this.form.errors).filter(e=>e==error).length==1;
   }
   
-  errorsToArray(errors: {}){
-   
+  errorsToArray(errors: {}){ 
     if(errors && !('required' in errors))
       return [Object.keys(errors)[0]];
     else

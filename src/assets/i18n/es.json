@@ -77,5 +77,26 @@
   "footer": {
     "grade": "2º Desarrollo de Aplicaciones Multiplataforma",
     "author": "Por Natalia Castillo"
+  },
+  "validators":{
+    "passwordMatch": "Las contraseñas no coinciden",
+    "passwordProto": "Al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número",
+    "email": "Debe introducir un email válido"
+  },
+  "login":{
+      "title":"Iniciar sesión",
+      "email":"Email",
+      "password":"Contraseña",
+      "send":"Enviar"
+  },
+  "register":{
+      "title":"Registro",
+      "register":"quiero registrarme",
+      "name":"Nombre Completo",
+      "email":"Email",
+      "password":"Contraseña",
+      "confirm_password":"Repita contraseña",
+      "send":"Enviar"
   }
+
 }

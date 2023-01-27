@@ -4,27 +4,27 @@
   <ion-list>
     <ion-item lines="none">
       <ion-label position="stacked">
-        {{'register.first_name' | translate}}<span class="required" *ngIf="form.controls.name.errors">&nbsp;&#42;</span>
+        <!-- {{'register.first_name' | translate}}<span class="required" *ngIf="form.controls.name.errors">&nbsp;&#42;</span> -->
       </ion-label>
       <ion-input autocomplete="" placeHolder="Nombre Completo" type="text" formControlName="name"></ion-input>
-      <span
+      <!-- <span
       class="validationError"
       *ngFor="let error of errorsToArray(form.controls.name.errors)"
-      >{{'validators.'+error | translate}}</span>
+      >{{'validators.'+error | translate}}</span> -->
     </ion-item>
     <ion-item lines="none">
       <ion-label position="stacked">
-        {{'register.email' | translate}}<span class="required" *ngIf="form.controls.email.errors">&nbsp;&#42;</span>
+        <!-- {{'register.email' | translate}}<span class="required" *ngIf="form.controls.email.errors">&nbsp;&#42;</span> -->
       </ion-label>
       <ion-input autocomplete="email" placeHolder="usuario@dominio" type="text" formControlName="email"></ion-input>
-      <span
+      <!-- <span
       class="validationError"
       *ngFor="let error of errorsToArray(form.controls.email.errors)"
-      >{{'validators.'+error | translate}}</span>
+      >{{'validators.'+error | translate}}</span> -->
     </ion-item>
     <ion-item lines="none">
       <ion-label position="stacked">
-        {{'register.password' | translate}}<span class="required" *ngIf="form.controls.password.errors">&nbsp;&#42;</span>
+        <!-- {{'register.password' | translate}}<span class="required" *ngIf="form.controls.password.errors">&nbsp;&#42;</span> -->
       </ion-label>
       <ion-input type="password" formControlName="password"></ion-input>
       <span
@@ -34,13 +34,13 @@
     </ion-item>
     <ion-item lines="none">
       <ion-label position="stacked">
-        {{'register.confirm_password' | translate}}<span class="required" *ngIf="form.controls.confirmPassword.errors">&nbsp;&#42;</span>
+        <!-- {{'register.confirm_password' | translate}}<span class="required" *ngIf="form.controls.confirmPassword.errors">&nbsp;&#42;</span> -->
       </ion-label>
       <ion-input (keyup.enter)="form.valid?onRegister():null" [enterkeyhint]="'enter'" type="password" formControlName="confirmPassword"></ion-input>
-      <span
+      <!-- <span
         class="validationError"
         *ngIf="hasFormError('passwordMatch') && form.get('confirmPassword').value"
-        >{{'validators.passwordMatch' | translate}}</span>
+        >{{'validators.passwordMatch' | translate}}</span> -->
     </ion-item>
   </ion-list> 
   <div class="form-button right">
