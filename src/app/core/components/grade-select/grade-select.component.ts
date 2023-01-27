@@ -47,7 +47,7 @@ export class GradeSelectComponent implements ControlValueAccessor {
   }
 
   getGrades(){
-    return this.gradeSvc.getListGrades();
+    return this.gradeSvc.getGrades();
   } 
 
   onGradeClicked(grades:GradeModel, accordion:IonAccordionGroup){

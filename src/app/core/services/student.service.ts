@@ -45,7 +45,6 @@ export class StudentService {
     return this._studentsSubject.value;
   }
 
-// Get single People data by ID
   getStudentById(id: number): Promise<StudentModel> {
     return new Promise<StudentModel>((resolve, reject)=>{
       this.api.get(`/api/students/${id}?populate=grade,picture`).subscribe({
@@ -56,11 +55,10 @@ export class StudentService {
             surname:data.data.attributes.surname,
             email:data.data.attributes.email,
             level:data.data.attributes.level,
+            grade:data.data.attributes.grade,
             picture:data.data.attributes.picture.data?
                     environment.api_url+data.data.attributes.picture.data?.attributes.url:
-                    "",
-            grade:data.data.attributes.grade,
-            
+                    ""                       
           });
         },
         error:err=>{
@@ -113,11 +111,11 @@ export class StudentService {
   async updateStudent(id:number, student:StudentModel){
     var _student = {
       name:student.name,
-        surname:student.surname,
-        email:student.email,
-        picture:student.picture,
-        grade:student.grade,
-        level:student.level
+      surname:student.surname,
+      email:student.email,
+      picture:student.picture,
+      grade:student.grade,
+      level:student.level
     };
     if(student['picture']){
       var id = await this.uploadImage(student['picture']);
@@ -138,7 +136,7 @@ export class StudentService {
 
   // Delete item by id
   deleteStudent(id: number) {
-    this.api.delete(`/api/student/${id}`).subscribe({
+    this.api.delete(`/api/students/${id}`).subscribe({
       next:data=>{
         this.refresh();
       },

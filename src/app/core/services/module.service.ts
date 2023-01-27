@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { GradeModel } from '../models';
+import { ModuleModel } from '../models';
 import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
+export class ModuleService {
 
-export class GradeService {
-
-  private _gradeSubject:BehaviorSubject<GradeModel[]> = new BehaviorSubject<GradeModel[]>([]);
-  public grades$ = this._gradeSubject.asObservable();
+  private _moduleSubject:BehaviorSubject<ModuleModel[]> = new BehaviorSubject<ModuleModel[]>([]);
+  public modules$ = this._moduleSubject.asObservable();
   
   constructor(private api: ApiService) { 
     this.refresh();
@@ -20,16 +19,14 @@ export class GradeService {
     this.api.get('/api/grades').subscribe({
       next:response=>{
         console.log(response);
-        var array:GradeModel[] = (response.data as Array<GradeModel>).
-        map<GradeModel>(grade=>{
+        var array:ModuleModel[] = (response.data as Array<ModuleModel>).
+        map<ModuleModel>(grade=>{
           return {id:grade.id, 
                   name:grade.name, 
-                  acronym:grade.acronym,
-                  first:grade.first,
-                  second:grade.second
+                  acronym:grade.acronym
           };
         });
-        this._gradeSubject.next(array);        
+        this._moduleSubject.next(array);        
       },
       error:err=>{
         console.log(err);
@@ -37,13 +34,13 @@ export class GradeService {
     });
   }
 
-  getGrades(){
-    return this._gradeSubject.value;
+  getModules(){
+    return this._moduleSubject.value;
   }
 
-  getGradeById(id:number):Promise<GradeModel>{
-    return new Promise<GradeModel>((resolve, reject)=>{
-      this.api.get(`/api/grades/${id}`).subscribe({
+  getModuleById(id:number):Promise<ModuleModel>{
+    return new Promise<ModuleModel>((resolve, reject)=>{
+      this.api.get(`/api/modules/${id}`).subscribe({
         next:data=>{
           resolve({
             id:data.data.id, 
@@ -58,8 +55,8 @@ export class GradeService {
     });
   }
 
-  async createGrade(grade:GradeModel){
-      var newGrade = {
+  async createModule(grade:ModuleModel){
+      var newModule = {
         id: null,
         name: grade.name,
         acronym: grade.acronym
@@ -68,8 +65,8 @@ export class GradeService {
 
   
   
-  updateGrade(id:number, grade: GradeModel | any){
-    this.api.put(`/api/grades/${grade.id}`,{
+  updateModule(id:number, grade: ModuleModel | any){
+    this.api.put(`/api/modules/${module.id}`,{
       data:{
         name:grade.name,
         acronym:grade.acronym
@@ -84,8 +81,8 @@ export class GradeService {
     });
   }
 
-  deleteGradeById(id:number){
-    this.api.delete(`/api/grades/${id}`).subscribe({
+  deleteModuleById(id:number){
+    this.api.delete(`/api/modules/${id}`).subscribe({
       next:data=>{
         this.refresh();
       },

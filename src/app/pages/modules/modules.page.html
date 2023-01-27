@@ -6,7 +6,10 @@
     <ion-title>{{ 'home.modules' | translate | uppercase }}</ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-list>
 
+  <app-module *ngFor="let module of (getModules() | async)" [module]="module" (onEdit)="onEditModule($event)" (onDelete)="onDeleteModule($event)"></app-module>
+</ion-list>
 <!-- <ion-list>
   <app-grade *ngFor="let grade of (getGrades() | async)" [grade]="grade" (onEdit)="onEditGrade($event)" (onDelete)="onDeleteGrade($event)"></app-grade>
 </ion-list> -->

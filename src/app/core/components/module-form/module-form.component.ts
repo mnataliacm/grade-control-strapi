@@ -1,22 +1,22 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { GradeModel } from '../../models';
+import { ModuleModel } from '../../models';
 
 @Component({
-  selector: 'app-grade-form',
-  templateUrl: './grade-form.component.html',
-  styleUrls: ['./grade-form.component.scss'],
+  selector: 'app-module-form',
+  templateUrl: './module-form.component.html',
+  styleUrls: ['./module-form.component.scss'],
 })
-export class GradeFormComponent {
+export class ModuleFormComponent {
 
   form:FormGroup;
   mode:"New" | "Edit" = "New";
-  @Input('grade') set grade(grade:GradeModel){
-    if(grade){
-      this.form.controls['id'].setValue(grade.id);
-      this.form.controls['name'].setValue(grade.name);
-      this.form.controls['acronym'].setValue(grade.acronym);
+  @Input('module') set module(module:ModuleModel){
+    if(module){
+      this.form.controls['id'].setValue(module.id);
+      this.form.controls['name'].setValue(module.name);
+      this.form.controls['acronym'].setValue(module.acronym);
       this.mode = "Edit";
     }
   }
@@ -33,11 +33,10 @@ export class GradeFormComponent {
   }
 
   onSubmit(){  
-    this.modal.dismiss({grade: this.form.value, mode:this.mode}, 'ok');
+    this.modal.dismiss({module: this.form.value, mode:this.mode}, 'ok');
   }
 
   onDismiss(result: any){
     this.modal.dismiss(null, 'cancel');
   }
-
 }

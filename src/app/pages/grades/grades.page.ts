@@ -1,31 +1,30 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { GradeModel, HttpClientProvider, ModuleFormComponent, ModuleModel } from 'src/app/core';
-import { ModuleService } from 'src/app/core/services/module.service';
+import { GradeFormComponent, GradeModel, GradeService, HttpClientProvider } from 'src/app/core';
 
 @Component({
-  selector: 'app-modules',
-  templateUrl: './modules.page.html',
-  styleUrls: ['./modules.page.scss'],
+  selector: 'app-grades',
+  templateUrl: './grades.page.html',
+  styleUrls: ['./grades.page.scss'],
 })
-export class ModulesPage {
+export class GradesPage {
 
   constructor(
-    private moduleSvc: ModuleService,
+    private gradeSvc: GradeService,
     private modal:ModalController,
     private alert:AlertController,
     private translate:TranslateService,
     private api:HttpClientProvider
   ) { }
 
-  getModules(){
-    return this.moduleSvc.modules$;
+  getGrades(){
+    return this.gradeSvc.grades$;
   }
 
-  async presentModuleForm(grade: GradeModel){
+  async presentGradeForm(grade: GradeModel){
     const modal = await this.modal.create({
-      component:ModuleFormComponent,
+      component:GradeFormComponent,
       componentProps:{
         grade:grade
       },
@@ -36,10 +35,10 @@ export class ModulesPage {
       if(result && result.data){
         switch(result.data.mode){
           case 'New':
-            this.moduleSvc.createModule(result.data.module);
+            this.gradeSvc.createGrade(result.data.grade);
             break;
           case 'Edit':
-            this.moduleSvc.updateModule(result.data.id, result.data.module);
+            this.gradeSvc.updateGrade(result.data.id, result.data.grade);
             break;
           default:
         }
@@ -47,14 +46,15 @@ export class ModulesPage {
     });
   }
 
-  onEditModule(module: ModuleModel){
-    this.presentModuleForm(module);
+  onEditGrade(grade: GradeModel){
+    this.presentGradeForm(grade);
   }
 
-  async onDeleteModule(module: ModuleModel){
+  async onDeleteGrade(grade: GradeModel){
+
     const alert = await this.alert.create({
       header: 'Atención',
-      message: '¿Está seguro de que desear borrar el módulo?',
+      message: '¿Está seguro de que desear borrar el curso?',
       buttons: [
         {
           text: 'Cancelar',
@@ -67,11 +67,10 @@ export class ModulesPage {
           text: 'Borrar',
           role: 'confirm',
           handler: () => {
-            this.moduleSvc.deleteModuleById(module.id);
+            this.gradeSvc.deleteGradeById(grade.id);
           },
         },
       ],
     });
   }
-
 }
