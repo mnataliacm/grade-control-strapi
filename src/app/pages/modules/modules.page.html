@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ 'home.modules' | translate | uppercase }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <ion-list>
+  <app-grade *ngFor="let grade of (getGrades() | async)" [grade]="grade" (onEdit)="onEditGrade($event)" (onDelete)="onDeleteGrade($event)"></app-grade>
+</ion-list> -->
+
+
+<!-- <ion-content class="ion-padding">
+  <ion-accordion-group *ngFor="let grade of (getModules() | async)" >
+    <ion-item-divider>{{ grade.name}}</ion-item-divider>
+
+    <ion-accordion class="ion-padding">
+      <ion-item slot="header" color="white" lines="none">
+        <ion-label>1º {{ grade.acronym}}</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content" *ngFor="let m of grade.first">
+        {{ m.module }}
+      </div>
+    </ion-accordion>
+
+    <ion-accordion class="ion-padding">
+      <ion-item slot="header" color="white">
+        <ion-label>2º {{ grade.acronym}}</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content" *ngFor="let m of grade.second">
+        {{ m.module }}
+      </div>
+    </ion-accordion>
+
+  </ion-accordion-group>
+</ion-content> -->

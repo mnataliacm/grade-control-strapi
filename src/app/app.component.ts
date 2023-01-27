@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { isLowResolution as lowres} from 'src/app/utils/screen.utils';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,20 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+
+  isLowResolution:()=>boolean = lowres;
+
+  constructor(
+    private translate: TranslateService,
+  ) {
+    this.translate.setDefaultLang('es');
+  }
+
+  spanish() {
+    this.translate.setDefaultLang('es');
+  }
+  english() {
+    this.translate.setDefaultLang('en');
+  }
+
 }

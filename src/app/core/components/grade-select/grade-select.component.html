@@ -1,0 +1,17 @@
+<ion-accordion-group #accordion>
+  <ion-accordion value="first">
+    <ion-item slot="header" color="light" *ngFor="let grade of _grades"> 
+    <ng-container *ngIf="selectGrade"  >
+      <ion-label>{{grade.acronym}}</ion-label>
+    </ng-container>
+    <ion-label *ngIf="!selectGrade">{{ 'assign.grade' | translate }}</ion-label>
+    </ion-item>
+    <div class="ion-padding" slot="content">
+      <ion-list>
+        <ion-item *ngFor="let grade of _grades" button (click)="onGradeClicked(grade, accordion)">
+          <ion-label>{{ grade.acronym }}</ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+  </ion-accordion>
+</ion-accordion-group>
