@@ -3,13 +3,16 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title> {{ 'home.home' | translate | uppercase }} <h1>Bienvenido</h1>
-      <h2>{{user.getUser()?.first_name}} {{user.getUser()?.last_name}}</h2></ion-title>
+    <ion-title> {{ 'home.home' | translate | uppercase }} </ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-item lines="none">
+    <ion-title><h1>Bienvenido, </h1> </ion-title>
+    <ion-title><h2>{{user.getUser()?.name}}</h2></ion-title>
+  </ion-item>
 
 <ion-item lines="none"></ion-item>
-<ion-item lines="none"></ion-item>
+
 <ion-content class="ion-padding" *ngIf="isLowResolution()">
   <ion-img src="../../../assets/images/imagenHome.png" alt="app logo"></ion-img>
 </ion-content>

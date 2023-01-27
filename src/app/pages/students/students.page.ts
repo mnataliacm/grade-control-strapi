@@ -22,16 +22,12 @@ export class StudentsPage {
   ) {
   }
 
-  getStudent(){
-    return this.studentSvc._students$;
+  getAllGrades() {
+  return this.gradeSvc.grades$;
   }
 
-  // getFilteredStudents(grade:string, student:StudentModel){
-  //   return  this.studentSvc.getStudentById(student.id);
-  // }
-
-  getAllGrades() {
-    this.gradeSvc.grades$;
+  getStudent(){
+    return this.studentSvc._students$;
   }
 
   async presentStudentForm(student:StudentModel){
@@ -115,4 +111,7 @@ export class StudentsPage {
     });
   }
 
+  // getFilteredStudents(grade:string, student:StudentModel){
+  //   return  this.studentSvc.getStudentById(student.id);
+  // }
 }

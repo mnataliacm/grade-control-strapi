@@ -12,8 +12,6 @@ import { HttpClientNativeProvider } from './core/services/http-client-native.pro
 import { HttpClientWebProvider } from './core/services/http-client-web.provider';
 import { HttpClientProvider } from './core/services/http-client.provider';
 import { CoreModule } from './core/core.module';
-import { SigninComponent } from './components/signin/signin.component';
-import { SignupComponent } from './components/signup/signup.component';
 
 export function httpProviderFactory(
   httpNative:HTTP,
@@ -26,7 +24,7 @@ export function httpProviderFactory(
 }
 
 @NgModule({
-  declarations: [AppComponent, SigninComponent, SignupComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule, 
     CoreModule,
