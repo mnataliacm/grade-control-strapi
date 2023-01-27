@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { StudentModel } from '../models';
 import { ApiService } from './api.service';
@@ -17,7 +17,7 @@ export class StudentService {
      }
 
   async refresh(){
-    this.api.get(`/api/students&populate=grade,picture,level`).subscribe({
+    this.api.get(`/api/students/?populate=grade,picture`).subscribe({
       next:response=>{
         console.log(response);
         var array:StudentModel[] = (response.data as Array<any>).map<StudentModel>(data=>{
@@ -29,8 +29,8 @@ export class StudentService {
             picture: data.attributes.picture.data?
                       environment.api_url + data.attributes.picture.data.attributes.url:
                       "", 
-            grade: data.attributes.grade.data.attributes.acronym,
-            level: data.attributes.level
+            level: data.attributes.level,        
+            grade: data.attributes.grade.data.attributes.acronym,            
           };
         });
         this._studentsSubject.next(array);     
@@ -48,18 +48,19 @@ export class StudentService {
 // Get single People data by ID
   getStudentById(id: number): Promise<StudentModel> {
     return new Promise<StudentModel>((resolve, reject)=>{
-      this.api.get(`/api/students/${id}?populate=picture`).subscribe({
+      this.api.get(`/api/students/${id}?populate=grade,picture`).subscribe({
         next:data=>{
           resolve({
             id:data.data.id,
             name:data.data.attributes.name,
             surname:data.data.attributes.surname,
             email:data.data.attributes.email,
+            level:data.data.attributes.level,
             picture:data.data.attributes.picture.data?
                     environment.api_url+data.data.attributes.picture.data?.attributes.url:
                     "",
             grade:data.data.attributes.grade,
-            level:data.data.attributes.level
+            
           });
         },
         error:err=>{
@@ -82,7 +83,7 @@ export class StudentService {
       var id = await this.uploadImage(student['picture']);
       student['picture'] = 'id';
     }
-    this.api.post(`/api/people`,{
+    this.api.post(`/api/students`,{
       data:student
     }).subscribe({
       next:data=>{

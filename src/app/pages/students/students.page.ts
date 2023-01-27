@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { ProfileComponent, StudentFormComponent, StudentModel } from 'src/app/core';
-import { GradeService, StudentService } from 'src/app/core/services';
+import { StudentService } from 'src/app/core/services';
 import { HttpClientProvider } from 'src/app/core/services/http-client.provider';
 
 @Component({
@@ -14,16 +14,11 @@ export class StudentsPage {
 
   constructor(
     private studentSvc: StudentService,
-    private gradeSvc: GradeService,
     private alert: AlertController,
     private modal: ModalController,
     private translate: TranslateService,
     private api:HttpClientProvider
   ) {
-  }
-
-  getAllGrades() {
-  return this.gradeSvc.grades$;
   }
 
   getStudent(){
