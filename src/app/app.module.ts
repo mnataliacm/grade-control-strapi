@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicRouteStrategy, Platform } from '@ionic/angular';
@@ -12,6 +12,7 @@ import { HttpClientNativeProvider } from './core/services/http-client-native.pro
 import { HttpClientWebProvider } from './core/services/http-client-web.provider';
 import { HttpClientProvider } from './core/services/http-client.provider';
 import { CoreModule } from './core/core.module';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 export function httpProviderFactory(
   httpNative:HTTP,
@@ -36,6 +37,7 @@ export function httpProviderFactory(
       deps: [HttpClient]
       }
     }),
+    IonicStorageModule.forRoot()
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     HTTP,
@@ -46,6 +48,6 @@ export function httpProviderFactory(
     },
   ],
   bootstrap: [AppComponent],
-  // schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule {}

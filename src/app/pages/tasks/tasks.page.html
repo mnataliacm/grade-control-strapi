@@ -7,7 +7,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-list>
+  <app-task *ngFor="let task of (getTasks() | async)" [task]="task" (onEdit)="onEditTask($event)" (onDelete)="onDeleteTask($event)"></app-task>
+</ion-list>
+
+<!-- <ion-content>
   <ion-fab slot="fixed" vertical="top" horizontal="end" [edge]="true">
     <ion-fab-button value="newTask" [routerLink]="['/edit-task']">
       <ion-icon name="add"></ion-icon>
@@ -41,4 +45,4 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-</ion-content>
+</ion-content> -->

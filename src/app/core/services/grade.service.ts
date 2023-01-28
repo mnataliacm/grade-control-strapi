@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { AlertController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { GradeModel } from '../models';
 import { ApiService } from './api.service';
@@ -12,12 +14,16 @@ export class GradeService {
   private _gradeSubject:BehaviorSubject<GradeModel[]> = new BehaviorSubject<GradeModel[]>([]);
   public grades$ = this._gradeSubject.asObservable();
   
-  constructor(private api: ApiService) { 
+  constructor(
+    private api: ApiService,
+    private alert: AlertController,
+    private translate: TranslateService,
+    ) { 
     this.refresh();
   }
 
   async refresh(){
-    this.api.get('/api/grades').subscribe({
+    this.api.get('/api/grades/').subscribe({
       next:response=>{
         console.log(response);
         var array:GradeModel[] = (response.data as Array<GradeModel>).

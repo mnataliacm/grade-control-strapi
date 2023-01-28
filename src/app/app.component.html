@@ -1,5 +1,5 @@
 <ion-app>
-  <ion-split-pane contentId="main-content">
+  <ion-split-pane contentId="main-content" *ngIf="(user.isLogged$ | async)">
     <ion-menu contentId="main-content">
 
       <ion-header>
@@ -10,7 +10,7 @@
 
       <ion-content>
         <ion-list>
-          <ion-menu-toggle auto-hide="false">
+          <ion-menu-toggle auto-hide="false" >
             <ion-item [routerDirection]="'root'" [routerLink]="'/home'">
               <ion-icon class="home" slot="start" [name]="'home-outline'"></ion-icon>
               <ion-label>
@@ -55,9 +55,18 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
+
+          <ion-menu-toggle auto-hide="false">
+            <ion-item (click)="signOut()" button>
+              <ion-icon slot="start" name="log-out-outline"></ion-icon>
+              <ion-label>Cerrar sesión</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
         </ion-list>
       </ion-content>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
+  <ion-router-outlet *ngIf="!(user.isLogged$ | async)"></ion-router-outlet>
 </ion-app>

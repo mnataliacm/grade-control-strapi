@@ -1,10 +1,10 @@
 export interface TaskModel {
-  id?: number;
-  level: string;
-  grade: string;
-  module: string;
+  id: number;
   name: string;
   type: string;
   info?: string;
-  date?:string;
+  level: string;
+  grade: string;
+  module: string;
+  date?: string;
 }

@@ -1,90 +1,127 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import * as moment from 'moment';
-import { catchError, Observable, retry, throwError } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { TaskModel } from '../models';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
-
-  base_path = 'http://localhost:3000/tasksData'
-
-  momentjs:any = moment;
-  
-  constructor(private http: HttpClient) { }
-
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
+  getListTask() {
+    throw new Error('Method not implemented.');
   }
 
-  // Handle API errors
-  handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-    }
-    // return an observable with a user-facing error message
-    return throwError(
-      'Something bad happened; please try again later.');
-  };
+  private _tasksSubject:BehaviorSubject<TaskModel[]> = new BehaviorSubject<TaskModel[]>([]);
+  public tasks$ = this._tasksSubject.asObservable();
+  
+  constructor(private api:ApiService) {
+    this.refresh();
+   }
 
-  createTask(task: TaskModel): Observable<TaskModel> {
+   async refresh(){
+    this.api.get(`/api/tasks/?populate=grade,module`).subscribe({
+      next:response=>{
+        console.log(response);
+        var array:TaskModel[] = (response.data as Array<any>).map<TaskModel>(data=>{
+          return {
+            id: data.id,
+            name: data.attributes.name,
+            type: data.attributes.type,
+            info: data.attributes.info,
+            level: data.attributes.level,
+            grade: data.attributes.grade.data.attributes.acronym,        
+            module: data.attributes.module.data.attributes.acronym,  
+            date: data.attributes.date          
+          };
+        });
+        this._tasksSubject.next(array);     
+      },
+      error:err=>{
+        console.log(err);
+      }
+    });
+  }
+
+  getTasks(){
+    return this._tasksSubject.value;
+  }
+
+  getTaskById(id:number): Promise<TaskModel> {
+    return new Promise<TaskModel>((resolve, reject)=>{
+      this.api.get(`/api/tasks/${id}?populate=grade,module`).subscribe({
+        next:data=>{
+          resolve({
+            id: data.id,
+            name: data.attributes.name,
+            type: data.attributes.type,
+            info: data.attributes.info,
+            level: data.attributes.level,
+            grade: data.attributes.grade.data.attributes.acronym,        
+            module: data.attributes.module.data.attributes.acronym,  
+            date: data.attributes.date     
+          });
+        },
+        error:err=>{
+          reject(err);
+        }
+      });
+    });
+  }
+
+  async createTask(task: TaskModel){
     var newTask = {
-      id: "",
-      level: task.level,
-      grade: task.grade,
-      module: task.module,
+      id: null,
       name: task.name,
       type: task.type,
       info: task.info,
+      level: task.level,
+      grade: task.grade,
+      module: task.module,
       date: task.date
     }
-    return this.http
-      .post<TaskModel>(this.base_path, JSON.stringify(newTask), this.httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      )
+    this.api.post(`api/tasks`,{
+      data:task
+    }).subscribe({
+      next:data=>{
+        this.refresh();
+      },
+      error:err=>{
+        console.log(err);
+      }
+    });
   }
 
-  getTask(id: string): Observable<TaskModel> {
-    return this.http
-      .get<TaskModel>(this.base_path + '/' + id)
-      .pipe(
-        catchError(this.handleError)
-      )
+  async updateTask(id: number, task: TaskModel){
+    var _task = {
+      name: task.name,
+      type: task.type,
+      info: task.info,
+      level: task.level,
+      grade: task.grade,
+      module: task.module,
+      date: task.date
+    };
+    this.api.put(`/api/tasks/${task.id}`,
+    {
+      data:_task
+    }).subscribe({
+      next:data=>{
+        this.refresh();
+      },
+      error:err=>{
+        console.log(err);
+      }
+    });
   }
 
-  getListTask(): Observable<TaskModel> {
-    return this.http
-      .get<TaskModel>(this.base_path + '/')
-      .pipe(
-        catchError(this.handleError)
-      )
-  }
-
-  updateTask(id: string | undefined, task: TaskModel): Observable<TaskModel> {
-    return this.http
-      .put<TaskModel>(this.base_path + '/' + id, JSON.stringify(task), this.httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      )
-  }
-
-  deleteTask(id: string) {
-    return this.http
-      .delete<TaskModel>(this.base_path + '/' + id, this.httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      )
+  deleteTask(id: number) {
+    this.api.delete(`/api/tasks/${id}`).subscribe({
+      next:data=>{
+        this.refresh();
+      },
+      error:err=>{
+        console.log(err);
+      }
+    });
   }
 }

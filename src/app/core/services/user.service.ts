@@ -26,7 +26,7 @@ export class UserService {
           if(await this.hasTokenInStorage()){
             this.user = JSON.parse(await this.storage.get('user-info'));
             this._isLogged.next(true); 
-            this.router.navigate(['Home']);
+            this.router.navigate(['home']);
           }
         } catch (error) {
           console.log(error);

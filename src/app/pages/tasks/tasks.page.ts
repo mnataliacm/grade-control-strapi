@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
+import { TaskFormComponent, TaskModel } from 'src/app/core';
 import { TaskService } from 'src/app/core/services/task.service';
 import { isLowResolution as lowres } from 'src/app/utils/screen.utils';
 
@@ -18,139 +19,71 @@ export class TasksPage {
   constructor(
     private taskSvc: TaskService,
     private alert: AlertController,
+    private modal: ModalController,
     private translate: TranslateService,
   ) {
   }
 
-  ionViewWillEnter() {
-    this.getAllTasks();
+  getTasks() {
+    return this.taskSvc.tasks$;
   }
 
-  getAllTasks() {
-    this.taskSvc.getListTask().subscribe(response => {
-      console.log(response);
-      this._tasks = response;
-    })
+
+  onEditTask(task: any){
+    this.presentTaskForm(task);
   }
 
-  async delete(item: { id: string; }) {
+  async presentTaskForm(task:TaskModel){
+    const modal = await this.modal.create({
+      component:TaskFormComponent,
+      componentProps:{
+        task:task
+      },
+      cssClass:"modal-full-right-side"
+    });
+    modal.present();
+    modal.onDidDismiss().then(result=>{
+      if(result && result.data){
+        switch(result.data.mode){
+          case 'New':
+            this.taskSvc.createTask(result.data.task);
+            break;
+          case 'Edit':
+            this.taskSvc.updateTask(result.data.task.id, result.data.task);
+            break;
+          default:
+        }
+      }
+    });
+  }
+
+  async onDeleteAlert(task:TaskModel){
     const alert = await this.alert.create({
-      header: await lastValueFrom(this.translate.get('task.alert')),
+      header: 'Atención',
+      message: '¿Está seguro de que desear borrar la tarea?',
       buttons: [
         {
-          text: await lastValueFrom(this.translate.get('button.cancel')),
+          text: 'Cancelar',
           role: 'cancel',
           handler: () => {
             console.log("Operacion cancelada");
           },
         },
         {
-          text: await lastValueFrom(this.translate.get('button.delete')),
+          text: 'Borrar',
           role: 'confirm',
           handler: () => {
-            this.taskSvc.deleteTask(item.id).subscribe(response => {
-              this.getAllTasks();
-            })
+            this.taskSvc.deleteTask(task.id);
           },
-        }
+        },
       ],
     });
     await alert.present();
     const { role } = await alert.onDidDismiss();
   }
 
-
-
-  // constructor(
-  //   public tasksSvc: TaskService,
-  //   //private assignmentSvc: AssignmentService,
-  //   private modal: ModalController,
-  //   private alert: AlertController,
-  //   private translate: TranslateService
-  //   ) { }
-
-  // getTasks(){
-  //   return this.tasksSvc._tasks$;
-  // }
-
-  // async presentTaskForm(task:Task){
-  //   const modal = await this.modal.create({
-  //     component:TaskFormComponent,
-  //     componentProps:{
-  //       task:task
-  //     }
-  //   });
-
-  //   modal.present();
-  //   modal.onDidDismiss().then(result=>{
-  //     if(result && result.data){
-  //       switch(result.data.mode){
-  //         case 'New':
-  //           this.tasksSvc.addTask(result.data.task);
-  //           break;
-  //         case 'Edit':
-  //           this.tasksSvc.updateTask(result.data.task);
-  //           break;
-  //         default:
-  //       }
-  //     }
-  //   });
-  // }
-
-  // onNewTask(){
-  //   this.presentTaskForm(null);  
-  // }
-
-  // onEditTask(task: Task){
-  //   this.presentTaskForm(task);
-  // }
-
-  // async onDeleteAlert(task: { id: any; }){
-  //   const alert = await this.alert.create({
-  //     header: await lastValueFrom(this.translate.get('task.alert')),
-  //     buttons: [
-  //       {
-  //         text: await lastValueFrom(this.translate.get('button.cancel')),
-  //         role: 'cancel',
-  //         handler: () => {
-  //           console.log("Operacion cancelada");
-  //         },
-  //       },
-  //       {
-  //         text: await lastValueFrom(this.translate.get('button.delete')),
-  //         role: 'confirm',
-  //         handler: () => {
-  //           this.tasksSvc.deleteTaskById(task.id);
-  //         },
-  //       },
-  //     ],
-  //   });
-  //   await alert.present();
-  //   const { role } = await alert.onDidDismiss();
-  // }
-
-  // async onTaskExistsAlert(person) {
-  //   const alert = await this.alert.create({
-  //     header: await lastValueFrom(this.translate.get('detail.warning')),
-  //     message: await lastValueFrom(this.translate.get('task.warning')),
-  //     buttons: [
-  //       {
-  //         text: await lastValueFrom(this.translate.get('button.close')),
-  //         role: 'close',
-  //         handler: () => { },
-  //       },
-  //     ],
-  //   });
-  //   await alert.present();
-  //   const { role } = await alert.onDidDismiss();
-  // }
-
-  // onDeleteTask(task){
-  //   if (!this.assignmentService.getAssignmentByTaskId(task.id).length) {
-  //     this.onDeleteAlert(task);
-  //   } else {
-  //     this.onTaskExistsAlert(task);
-  //   }
-  // }
-
+  async onDeleteTask(task:TaskModel){
+    this.onDeleteAlert(task);
+  }
+  
 }

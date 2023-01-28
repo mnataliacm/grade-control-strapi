@@ -10,7 +10,7 @@ import en from '@angular/common/locales/en';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 import { DateTimeSelectableComponent } from './components/date-time-selectable/date-time-selectable.component';
-import { AssignScheduleComponent, GradeComponent, GradeFormComponent, GradeSelectComponent, ModuleComponent, ModuleFormComponent, ProfileComponent, StudentComponent, StudentFormComponent } from './components';
+import { AssignScheduleComponent, GradeComponent, GradeFormComponent, GradeSelectComponent, ModuleComponent, ModuleFormComponent, ProfileComponent, StudentComponent, StudentFormComponent, TaskComponent, TaskFormComponent } from './components';
 
 registerLocaleData(en);
 registerLocaleData(es);
@@ -27,7 +27,9 @@ registerLocaleData(es);
     StudentComponent,
     StudentFormComponent,
     ModuleComponent,
-    ModuleFormComponent
+    ModuleFormComponent,
+    TaskComponent,
+    TaskFormComponent,
   ],
   imports: 
   [
@@ -46,6 +48,7 @@ registerLocaleData(es);
     IonicStorageModule.forRoot({
       name: '__gradecontroldb',
           driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage]
+          //driverOrder: ['indexedDB', 'sqlite', 'websql']
     })
     
   ],
@@ -66,7 +69,9 @@ registerLocaleData(es);
     StudentComponent,
     StudentFormComponent,
     ModuleComponent,
-    ModuleFormComponent
+    ModuleFormComponent,
+    TaskComponent,
+    TaskFormComponent,
   ],
   providers: [
   {
@@ -74,6 +79,7 @@ registerLocaleData(es);
     useValue: 'es'
   },
 ]
+
 })
 
 export class CoreModule { }

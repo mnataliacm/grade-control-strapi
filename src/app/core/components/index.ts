@@ -7,5 +7,7 @@ export * from './student/student.component';
 export * from './student-form/student-form.component';
 export * from './module/module.component';
 export * from './module-form/module-form.component';
+export * from './task/task.component';
+export * from './task-form/task-form.component';
 
 //export * from '.';

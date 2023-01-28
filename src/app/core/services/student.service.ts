@@ -134,7 +134,6 @@ export class StudentService {
     });
   } 
 
-  // Delete item by id
   deleteStudent(id: number) {
     this.api.delete(`/api/students/${id}`).subscribe({
       next:data=>{

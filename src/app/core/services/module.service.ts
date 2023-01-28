@@ -16,14 +16,15 @@ export class ModuleService {
   }
 
   async refresh(){
-    this.api.get('/api/grades').subscribe({
+    this.api.get('/api/modules/?populate=grade').subscribe({
       next:response=>{
         console.log(response);
         var array:ModuleModel[] = (response.data as Array<ModuleModel>).
-        map<ModuleModel>(grade=>{
-          return {id:grade.id, 
-                  name:grade.name, 
-                  acronym:grade.acronym
+        map<ModuleModel>(module=>{
+          return {id:module.id, 
+                  name:module.name, 
+                  acronym:module.acronym,
+                  level:module.level
           };
         });
         this._moduleSubject.next(array);        
@@ -45,7 +46,8 @@ export class ModuleService {
           resolve({
             id:data.data.id, 
             name:data.data.attributes.name, 
-            acronym:data.data.attributes.acronym
+            acronym:data.data.attributes.acronym,
+            level:data.data.attributes.level
           });         
         },
         error:err=>{
@@ -55,21 +57,23 @@ export class ModuleService {
     });
   }
 
-  async createModule(grade:ModuleModel){
+  async createModule(module:ModuleModel){
       var newModule = {
         id: null,
-        name: grade.name,
-        acronym: grade.acronym
+        name: module.name,
+        acronym: module.acronym,
+        level: module.level
       }
     }
 
   
   
-  updateModule(id:number, grade: ModuleModel | any){
+  updateModule(id:number, module: ModuleModel | any){
     this.api.put(`/api/modules/${module.id}`,{
       data:{
-        name:grade.name,
-        acronym:grade.acronym
+        name:module.name,
+        acronym:module.acronym,
+        level:module.level
       }
     }).subscribe({
       next:data=>{
