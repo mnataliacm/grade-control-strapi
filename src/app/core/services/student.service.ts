@@ -17,7 +17,7 @@ export class StudentService {
      }
 
   async refresh(){
-    this.api.get(`/api/students/?populate=grade,picture`).subscribe({
+    this.api.get(`/api/students/?populate=picture`).subscribe({
       next:response=>{
         console.log(response);
         var array:StudentModel[] = (response.data as Array<any>).map<StudentModel>(data=>{
@@ -26,11 +26,11 @@ export class StudentService {
             name: data.attributes.name,
             surname: data.attributes.surname,
             email: data.attributes.email,
+            level: data.attributes.level,        
+            grade: data.attributes.grade,
             picture: data.attributes.picture.data?
                       environment.api_url + data.attributes.picture.data.attributes.url:
-                      "", 
-            level: data.attributes.level,        
-            grade: data.attributes.grade.data.attributes.acronym,            
+                      ""                       
           };
         });
         this._studentsSubject.next(array);     
@@ -47,7 +47,7 @@ export class StudentService {
 
   getStudentById(id: number): Promise<StudentModel> {
     return new Promise<StudentModel>((resolve, reject)=>{
-      this.api.get(`/api/students/${id}?populate=grade,picture`).subscribe({
+      this.api.get(`/api/students/${id}?populate=picture`).subscribe({
         next:data=>{
           resolve({
             id:data.data.id,
@@ -73,7 +73,8 @@ export class StudentService {
       name: student.name,
       surname: student.surname,
       email: student.email,
-      level: student.level       
+      level: student.level,
+      grade: student.grade       
     }
     if(student['picture']){
       var id = await this.uploadImage(student['picture']);
@@ -111,9 +112,9 @@ export class StudentService {
       name:student.name,
       surname:student.surname,
       email:student.email,
-      picture:student.picture,
+      level:student.level,
       grade:student.grade,
-      level:student.level
+      picture:student.picture,            
     };
     if(student['picture']){
       var id = await this.uploadImage(student['picture']);

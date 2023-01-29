@@ -49,7 +49,7 @@ export class ModuleService {
             name:data.data.attributes.name, 
             acronym:data.data.attributes.acronym,
             level:data.data.attributes.level,
-            grade:data.data.attributes.grade           
+            grade:data.data.attributes.grade,           
           });         
         },
         error:err=>{

@@ -22,6 +22,7 @@ export class StudentFormComponent {
       this.form.controls['surname'].setValue(student.surname);
       this.form.controls['email'].setValue(student.email);
       this.form.controls['level'].setValue(student.level);
+      this.form.controls['grade'].setValue(student.grade);
       this.form.controls['picture'].setValue(student.picture);
       if(student.picture)
         this.currentImage.next(student.picture);
@@ -40,7 +41,8 @@ export class StudentFormComponent {
       name:['', [Validators.required]],
       surname:['', [Validators.required]],
       email:['', [Validators.required, Validators.email]],
-      level:['', [[Validators.required]]],
+      level:[''],
+      grade:[''],
       picture:['']
     });
   }
