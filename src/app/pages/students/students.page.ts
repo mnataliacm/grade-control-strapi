@@ -41,7 +41,7 @@ export class StudentsPage {
             this.studentSvc.createStudent(result.data.student);
             break;
           case 'Edit':
-            this.studentSvc.updateStudent(result.data.id, result.data.student);
+            this.studentSvc.updateStudent(result.data.student);
             break;
           default:
         }
@@ -78,33 +78,52 @@ export class StudentsPage {
     const { role } = await alert.onDidDismiss();
   }
 
-  toPerfil(student: StudentModel) {
-    this.presentProfileStudent(student);
-  }
-
-  async presentProfileStudent(student: StudentModel) {
+  async presentForm(_class: typeof StudentFormComponent, onDismiss:(arg0: any)=>void){
     const modal = await this.modal.create({
-      component: ProfileComponent,
-      componentProps: {
-        student: student
-      }
+      component:_class,
+      cssClass:"modal-full-right-side"
     });
-
     modal.present();
-    modal.onDidDismiss().then(result => {
-      if (result && result.data) {
-        switch (result.data.mode) {
-          case 'New':
-            this.studentSvc.createStudent(result.data.student);
-            break;
-          case 'Edit':
-            this.studentSvc.updateStudent(result.data.student.id, result.data.student);
-            break;
-          default:
-        }
+    modal.onDidDismiss().then(result=>{
+      if(result && result.data){
+        onDismiss(result.data);
       }
     });
   }
+
+  onNewItem(){
+    this.presentForm(StudentFormComponent, (data)=>{
+      this.studentSvc.createStudent(data.student);
+    });
+  }
+
+  // toPerfil(student: StudentModel) {
+  //   this.presentProfileStudent(student);
+  // }
+
+  // async presentProfileStudent(student: StudentModel) {
+  //   const modal = await this.modal.create({
+  //     component: ProfileComponent,
+  //     componentProps: {
+  //       student: student
+  //     }
+  //   });
+
+  //   modal.present();
+  //   modal.onDidDismiss().then(result => {
+  //     if (result && result.data) {
+  //       switch (result.data.mode) {
+  //         case 'New':
+  //           this.studentSvc.createStudent(result.data.student);
+  //           break;
+  //         case 'Edit':
+  //           this.studentSvc.updateStudent(result.data.student.id, result.data.student);
+  //           break;
+  //         default:
+  //       }
+  //     }
+  //   });
+  // }
 
   // getFilteredStudents(grade:string, student:StudentModel){
   //   return  this.studentSvc.getStudentById(student.id);

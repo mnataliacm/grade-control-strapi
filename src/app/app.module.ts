@@ -13,6 +13,7 @@ import { HttpClientWebProvider } from './core/services/http-client-web.provider'
 import { HttpClientProvider } from './core/services/http-client.provider';
 import { CoreModule } from './core/core.module';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { Drivers } from '@ionic/storage';
 
 export function httpProviderFactory(
   httpNative:HTTP,
@@ -37,7 +38,11 @@ export function httpProviderFactory(
       deps: [HttpClient]
       }
     }),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot({
+      name: '__gradecontroldb',
+          driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage]
+          //driverOrder: ['indexedDB', 'sqlite', 'websql']
+    })
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     HTTP,

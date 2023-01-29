@@ -6,10 +6,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LocalStorageService {
-  private _storage: Storage | any;
 
+  private _storage: Storage | any;
   private _isReady$ = new BehaviorSubject<boolean>(false);
-  
   
   constructor(private storage: Storage) {
     this.init();

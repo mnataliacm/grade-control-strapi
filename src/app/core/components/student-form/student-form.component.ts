@@ -21,6 +21,7 @@ export class StudentFormComponent {
       this.form.controls['name'].setValue(student.name);
       this.form.controls['surname'].setValue(student.surname);
       this.form.controls['email'].setValue(student.email);
+      this.form.controls['level'].setValue(student.level);
       this.form.controls['picture'].setValue(student.picture);
       if(student.picture)
         this.currentImage.next(student.picture);
@@ -29,7 +30,6 @@ export class StudentFormComponent {
     }
   }
   
-
   constructor(
     private fb:FormBuilder,
     private modal:ModalController,
@@ -39,9 +39,9 @@ export class StudentFormComponent {
       id:[null],
       name:['', [Validators.required]],
       surname:['', [Validators.required]],
-      nickname:['', [Validators.required]],
-      picture:[''],
-      pictureFile:[null]
+      email:['', [Validators.required, Validators.email]],
+      level:['', [[Validators.required]]],
+      picture:['']
     });
   }
 

@@ -6,7 +6,17 @@
     <ion-title>{{ 'home.grades' | translate | uppercase }}</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-list>
 
-  <app-grade *ngFor="let grade of (getGrades() | async)" [grade]="grade" (onEdit)="onEditGrade($event)" (onDelete)="onDeleteGrade($event)"></app-grade>
-</ion-list>
+<ion-content class="ion-padding">
+
+  <ion-fab slot="fixed" vertical="top" horizontal="end" [edge]="true">
+    <ion-fab-button value="newGrade" (click)="onNewItem()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-list>
+    <app-grade *ngFor="let grade of (getGrades() | async)" [grade]="grade" (onEdit)="onEditGrade($event)" (onDelete)="onDeleteGrade($event)"></app-grade>
+  </ion-list>
+
+</ion-content>

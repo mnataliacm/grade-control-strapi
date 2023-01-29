@@ -69,20 +69,18 @@ export class StudentService {
   }
 
   async createStudent(student: StudentModel){
-    var newStudent = {
-      id: null,
+    var _student = {
       name: student.name,
       surname: student.surname,
       email: student.email,
-      grade: student.grade,
-      level: student.level
+      level: student.level       
     }
     if(student['picture']){
       var id = await this.uploadImage(student['picture']);
       student['picture'] = 'id';
     }
     this.api.post(`/api/students`,{
-      data:student
+      data:_student
     }).subscribe({
       next:data=>{
         this.refresh();
@@ -108,7 +106,7 @@ export class StudentService {
     });
   }
 
-  async updateStudent(id:number, student:StudentModel){
+  async updateStudent(student:StudentModel){
     var _student = {
       name:student.name,
       surname:student.surname,

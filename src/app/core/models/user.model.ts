@@ -14,6 +14,5 @@ export interface User{
     username:string;
     email:string;
     provider:string;
-    token:string,
-    name:string
+    token:string
 }

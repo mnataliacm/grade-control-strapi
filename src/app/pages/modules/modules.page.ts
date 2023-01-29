@@ -23,11 +23,11 @@ export class ModulesPage {
     return this.moduleSvc.modules$;
   }
 
-  async presentModuleForm(grade: GradeModel){
+  async presentModuleForm(module: ModuleModel){
     const modal = await this.modal.create({
       component:ModuleFormComponent,
       componentProps:{
-        grade:grade
+        module:module
       },
       cssClass:"modal-full-right-side"
     });
@@ -39,7 +39,7 @@ export class ModulesPage {
             this.moduleSvc.createModule(result.data.module);
             break;
           case 'Edit':
-            this.moduleSvc.updateModule(result.data.id, result.data.module);
+            this.moduleSvc.updateModule(result.data.module);
             break;
           default:
         }
@@ -74,4 +74,22 @@ export class ModulesPage {
     });
   }
 
+  async presentForm(_class: typeof ModuleFormComponent, onDismiss:(arg0: any)=>void){
+    const modal = await this.modal.create({
+      component:_class,
+      cssClass:"modal-full-right-side"
+    });
+    modal.present();
+    modal.onDidDismiss().then(result=>{
+      if(result && result.data){
+        onDismiss(result.data);
+      }
+    });
+  }
+
+  onNewItem(){
+    this.presentForm(ModuleFormComponent, (data)=>{
+      this.moduleSvc.createModule(data.module);
+    });
+  }
 }

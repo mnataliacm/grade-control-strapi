@@ -49,7 +49,7 @@ export class TasksPage {
             this.taskSvc.createTask(result.data.task);
             break;
           case 'Edit':
-            this.taskSvc.updateTask(result.data.task.id, result.data.task);
+            this.taskSvc.updateTask(result.data.task);
             break;
           default:
         }
@@ -84,6 +84,25 @@ export class TasksPage {
 
   async onDeleteTask(task:TaskModel){
     this.onDeleteAlert(task);
+  }
+
+  async presentForm(_class: typeof TaskFormComponent, onDismiss:(arg0: any)=>void){
+    const modal = await this.modal.create({
+      component:_class,
+      cssClass:"modal-full-right-side"
+    });
+    modal.present();
+    modal.onDidDismiss().then(result=>{
+      if(result && result.data){
+        onDismiss(result.data);
+      }
+    });
+  }
+
+  onNewItem(){
+    this.presentForm(TaskFormComponent, (data)=>{
+      this.taskSvc.createTask(data.task);
+    });
   }
   
 }

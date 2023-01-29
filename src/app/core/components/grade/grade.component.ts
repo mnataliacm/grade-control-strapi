@@ -13,11 +13,13 @@ export class GradeComponent {
 
   @Output() onEdit = new EventEmitter;
   @Output() onDelete = new EventEmitter;
-  @Input() grade:GradeModel | any;
-  isLowResolution = lowres;
+  @Input() grade: GradeModel | any;
+  isLowResolution:()=>boolean = lowres;
   constructor(
     private gradeSvc:GradeService,
-  ) { }
+  ) {
+      
+   }
 
   onEditClick(slide:IonItemSliding){
     slide.close();

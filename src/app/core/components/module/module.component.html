@@ -1,6 +1,7 @@
 <ion-item-sliding #sliding [disabled]="!isLowResolution()">
   <ion-item>
-    <ion-label>{{module.name}}</ion-label>
+    <ion-label>{{module.name}} - {{module.acronym}}</ion-label>
+    <ion-label *ngIf="!isLowResolution()">{{module.level}} - {{module.grade}}</ion-label>
     <ion-button class="item-expanded" *ngIf="!isLowResolution()" slot="end" fill="clear" (click)="onEditClick(sliding)">
       <div class="vertical">
         <ion-icon name="create" ></ion-icon>

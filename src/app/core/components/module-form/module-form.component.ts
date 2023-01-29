@@ -17,6 +17,7 @@ export class ModuleFormComponent {
       this.form.controls['id'].setValue(module.id);
       this.form.controls['name'].setValue(module.name);
       this.form.controls['acronym'].setValue(module.acronym);
+      this.form.controls['level'].setValue(module.level);
       this.mode = "Edit";
     }
   }

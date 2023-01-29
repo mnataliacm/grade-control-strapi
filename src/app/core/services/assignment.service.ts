@@ -14,7 +14,7 @@ export class AssignmentService {
   ) {}
 
   getListTask() {
-    return this.taskSvc.getListTask()
+    return this.taskSvc.getTasks()
   }
 
   momentjs:any = moment;

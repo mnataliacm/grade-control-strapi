@@ -38,7 +38,7 @@ export class GradesPage {
             this.gradeSvc.createGrade(result.data.grade);
             break;
           case 'Edit':
-            this.gradeSvc.updateGrade(result.data.id, result.data.grade);
+            this.gradeSvc.updateGrade(result.data.grade);
             break;
           default:
         }
@@ -51,7 +51,6 @@ export class GradesPage {
   }
 
   async onDeleteGrade(grade: GradeModel){
-
     const alert = await this.alert.create({
       header: 'Atención',
       message: '¿Está seguro de que desear borrar el curso?',
@@ -67,10 +66,31 @@ export class GradesPage {
           text: 'Borrar',
           role: 'confirm',
           handler: () => {
-            this.gradeSvc.deleteGradeById(grade.id);
+            this.gradeSvc.deleteGrade(grade.id);
           },
         },
       ],
+    });
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+  }
+
+  async presentForm(_class: typeof GradeFormComponent, onDismiss:(arg0: any)=>void){
+    const modal = await this.modal.create({
+      component:_class,
+      cssClass:"modal-full-right-side"
+    });
+    modal.present();
+    modal.onDidDismiss().then(result=>{
+      if(result && result.data){
+        onDismiss(result.data);
+      }
+    });
+  }
+
+  onNewItem(){
+    this.presentForm(GradeFormComponent, (data)=>{
+      this.gradeSvc.createGrade(data.grade);
     });
   }
 }
