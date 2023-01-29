@@ -72,6 +72,8 @@ export class ModulesPage {
         },
       ],
     });
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
   }
 
   async presentForm(_class: typeof ModuleFormComponent, onDismiss:(arg0: any)=>void){

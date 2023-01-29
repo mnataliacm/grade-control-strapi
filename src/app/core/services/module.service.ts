@@ -16,7 +16,7 @@ export class ModuleService {
   }
 
   async refresh(){
-    this.api.get('/api/modules/?populate=grade').subscribe({
+    this.api.get('/api/modules').subscribe({
       next:response=>{
         console.log(response);
         var array:ModuleModel[] = (response.data as Array<any>).
@@ -25,7 +25,7 @@ export class ModuleService {
                   name:data.attributes.name, 
                   acronym:data.attributes.acronym,
                   level:data.attributes.level,
-                  grade:data.attributes.grade.data.attributes.acronym
+                  grade:data.attributes.grade
           };
         });
         this._moduleSubject.next(array);        
@@ -49,6 +49,7 @@ export class ModuleService {
             name:data.data.attributes.name, 
             acronym:data.data.attributes.acronym,
             level:data.data.attributes.level,
+            grade:data.data.attributes.grade           
           });         
         },
         error:err=>{
@@ -63,7 +64,8 @@ export class ModuleService {
       data:{
         name: module.name,
         acronym: module.acronym,
-        level: module.level
+        level: module.level,
+        grade: module.grade
       }
     }).subscribe({
       next:data=>{
@@ -82,7 +84,8 @@ export class ModuleService {
       data:{
         name:module.name,
         acronym:module.acronym,
-        level:module.level
+        level:module.level,
+        grade:module.grade
       }
     }).subscribe({
       next:data=>{

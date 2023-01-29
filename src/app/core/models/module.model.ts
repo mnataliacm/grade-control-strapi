@@ -3,4 +3,5 @@ export interface ModuleModel {
   name: string;
   acronym: string;
   level: string;
+  grade: string;
 }

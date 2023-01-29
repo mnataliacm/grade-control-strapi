@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { ProfileComponent, StudentFormComponent, StudentModel } from 'src/app/core';
+import { StudentFormComponent, StudentModel } from 'src/app/core';
 import { StudentService } from 'src/app/core/services';
 import { HttpClientProvider } from 'src/app/core/services/http-client.provider';
 

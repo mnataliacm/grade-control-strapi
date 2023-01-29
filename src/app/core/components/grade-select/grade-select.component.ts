@@ -18,7 +18,7 @@ export const GRADE_PROFILE_VALUE_ACCESSOR: any = {
 })
 export class GradeSelectComponent implements ControlValueAccessor {
 
-  selectGrade: GradeModel | undefined;
+  selectGrade: GradeModel | any;
   propagateChange = (_: any) => { }
   isDisabled:boolean = false;
   _grades: GradeModel[] = [];
@@ -29,7 +29,7 @@ export class GradeSelectComponent implements ControlValueAccessor {
 
   async writeValue(obj: any) {
     try {
-      //this.selectGrade = await this.gradeSvc.getGrades();
+      this.selectGrade = await this.gradeSvc.getGrades();
     } catch (error) {
       console.log("No se ha podido recupera los datos: " + error);
     }
