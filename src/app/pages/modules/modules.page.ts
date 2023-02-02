@@ -1,7 +1,7 @@
 import { Component} from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { GradeModel, HttpClientProvider, ModuleFormComponent, ModuleModel } from 'src/app/core';
+import { GradeService, HttpClientProvider, ModuleFormComponent, ModuleModel } from 'src/app/core';
 import { ModuleService } from 'src/app/core/services/module.service';
 
 @Component({
@@ -11,16 +11,33 @@ import { ModuleService } from 'src/app/core/services/module.service';
 })
 export class ModulesPage {
 
+  _modules: ModuleModel[] = [];
+  _grades: any;
+
   constructor(
     private moduleSvc: ModuleService,
     private modal:ModalController,
     private alert:AlertController,
     private translate:TranslateService,
-    private api:HttpClientProvider
+    private api:HttpClientProvider,
+    private gradeSvc: GradeService
   ) { }
+
+  // ionViewWillEnter() {
+  //   this.getModules();
+  //   this.getGrades();
+  // }
 
   getModules(){
     return this.moduleSvc.modules$;
+  }
+
+  getGrades() {
+    return this.gradeSvc.grades$;
+  }
+
+  getFilteredByGrade(grade:string|null){
+    return this._modules.filter(s=>s.grade == grade);
   }
 
   async presentModuleForm(module: ModuleModel){
@@ -94,4 +111,5 @@ export class ModulesPage {
       this.moduleSvc.createModule(data.module);
     });
   }
+
 }

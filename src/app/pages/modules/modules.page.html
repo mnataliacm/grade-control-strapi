@@ -9,15 +9,53 @@
 
 <ion-content class="ion-padding">
 
-<ion-fab slot="fixed" vertical="top" horizontal="end" [edge]="true">
-  <ion-fab-button value="newGrade" (click)="onNewItem()">
-    <ion-icon name="add"></ion-icon>
-  </ion-fab-button>
-</ion-fab>
+  <ion-fab slot="fixed" vertical="top" horizontal="end" [edge]="true">
+    <ion-fab-button value="newGrade" (click)="onNewItem()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
-<ion-list>
-  <app-module *ngFor="let module of (getModules() | async)" [module]="module" (onEdit)="onEditModule($event)" (onDelete)="onDeleteModule($event)"></app-module>
-</ion-list>
+  <!-- <ion-accordion-group *ngFor="let module of (getModules() | async)">
 
+    <ion-item-divider> 1º {{ module.grade}}</ion-item-divider>
+    <app-module *ngIf="module.grade == module.grade && module.level == 'first'" [module]="module" (onEdit)="onEditModule($event)" (onDelete)="onDeleteModule($event)"></app-module>
+
+    <ion-item-divider> 2º {{ module.grade}}</ion-item-divider>
+    <app-module *ngIf="module.grade == module.grade && module.level == 'second'" [module]="module" (onEdit)="onEditModule($event)" (onDelete)="onDeleteModule($event)"></app-module>
+    
+  </ion-accordion-group> -->
+
+
+
+
+
+  <ion-accordion-group *ngFor="let grade of (getGrades() | async)" [multiple]="false">
+    <ion-label>{{ grade.name }}</ion-label>
+
+    <ion-accordion class="ion-padding" >
+      <ion-item slot="header" color="white" lines="none">
+        <ion-label>1º {{ grade.acronym }}</ion-label>
+      </ion-item>
+          <div class="ion-padding" slot="content" *ngFor="let module of (getModules() | async)">
+            <app-module *ngIf="module && module.grade == grade.acronym && module.level == 'first'" [module]="module" (onEdit)="onEditModule($event)" (onDelete)="onDeleteModule($event)"></app-module>
+          </div>
+    </ion-accordion>
+   
+    <ion-accordion class="ion-padding" >
+      <ion-item slot="header" color="white" lines="none" >
+        <ion-label>2º {{ grade.acronym }}</ion-label>
+      </ion-item >
+      <div class="ion-padding" slot="content" *ngFor="let module of (getModules() | async)" > 
+        <app-module  *ngIf="module && module.grade == grade.acronym && module.level == 'second'" [module]="module" (onEdit)="onEditModule($event)" (onDelete)="onDeleteModule($event)"></app-module>
+      </div>  
+    </ion-accordion> 
+  </ion-accordion-group>
+
+  <!-- <ion-list *ngFor="let module of (getModules() | async)">
+    <app-module [module]="module" (onEdit)="onEditModule($event)" (onDelete)="onDeleteModule($event)"></app-module>
+  </ion-list> -->
+  
 </ion-content>
+
+
 
