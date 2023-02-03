@@ -14,6 +14,8 @@ export class UserService {
 
   private _isLogged = new BehaviorSubject<boolean>(false);
   public isLogged$ = this._isLogged.asObservable();
+  private _user = new BehaviorSubject<User | undefined>(undefined);
+  public user$ = this._user.asObservable();
   private user:User | any;
   constructor(
     private api:ApiService,
@@ -25,9 +27,12 @@ export class UserService {
         try {
           if(await this.hasTokenInStorage()){
             this.user = JSON.parse(await this.storage.get('user-info'));
+            this._user.next(this.user);
             this._isLogged.next(true); 
             this.router.navigate(['home']);
           }
+          else
+            this._user.next(undefined);
         } catch (error) {
           console.log(error);
         }

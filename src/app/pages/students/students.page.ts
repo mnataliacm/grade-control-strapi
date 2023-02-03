@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { StudentFormComponent, StudentModel } from 'src/app/core';
-import { StudentService } from 'src/app/core/services';
+import { GradeService, StudentService } from 'src/app/core/services';
 import { HttpClientProvider } from 'src/app/core/services/http-client.provider';
 
 @Component({
@@ -12,17 +12,28 @@ import { HttpClientProvider } from 'src/app/core/services/http-client.provider';
 })
 export class StudentsPage {
 
+  _students: StudentModel[]=[];
+  _grades:any;
+
   constructor(
     private studentSvc: StudentService,
     private alert: AlertController,
     private modal: ModalController,
     private translate: TranslateService,
-    private api:HttpClientProvider
+    private api:HttpClientProvider,
+    private gradeSvc: GradeService
   ) {
   }
 
-  getStudent(){
+  getStudents(){
     return this.studentSvc._students$;
+  }
+  getGrades() {
+    return this.gradeSvc.grades$;
+  }
+
+  getFilteredByGrade(grade:any){
+    return this._students.filter(s=>s.grade == grade);
   }
 
   async presentStudentForm(student:StudentModel){

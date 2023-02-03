@@ -11,7 +11,8 @@
     "info": "Acerca de",
     "language": "Elige idioma: ",
     "spa": "icono bandera españa",
-    "eng": "icono bandera reino unido"    
+    "eng": "icono bandera reino unido",
+    "login": "BIENVENID@"
   },
   "detail": {
     "titleS": "Datos de los alumnos",

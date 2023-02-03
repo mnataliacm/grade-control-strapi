@@ -16,8 +16,19 @@
   </ion-fab>
 
 <ion-list>
-  <app-student *ngFor="let student of (getStudent() | async)" [student]="student" 
+  <app-student *ngFor="let student of (getStudents() | async)" [student]="student" 
   (onEdit)="onEditStudent($event)" (onDelete)="onDeleteStudent($event)"></app-student>
 </ion-list>
+
+<!-- <ion-grid [fixed]="true">
+  <ion-row *ngFor="let grade of (getGrades() | async)">
+    <ion-item-divider>1º {{ grade.acronym}}</ion-item-divider>
+    <ion-col sizeXs="10" sizeXl="3" *ngFor="let student of getFilteredByGrade(grade.acronym)" >
+      <ion-card *ngIf="student && student.grade == grade.acronym && student.level == 'second'">
+        <app-student [student]="student" (onEdit)="onEditStudent($event)" (onDelete)="onDeleteStudent($event)"></app-student>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid> -->
 
 </ion-content>

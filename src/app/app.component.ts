@@ -16,14 +16,14 @@ export class AppComponent implements AfterViewInit {
 
   isLowResolution:()=>boolean = lowres;
   public labels = [];
-  language = 1; // 0 español, 1 inglés
+  language = 0; // 0 español, 1 inglés
   constructor(
     private translate: TranslateService,
     private locale:LocaleService,
     public user:UserService,
     private router:Router
   ) {
-    this.translate. setDefaultLang('en');
+    this.translate. setDefaultLang('es');
   }
   ngAfterViewInit(): void {
    
