@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, Output, EventEmitter } from '@angular/core';
+import { Component, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { IonAccordionGroup } from '@ionic/angular';
 import { GradeModel } from '../../models';
@@ -21,11 +21,8 @@ export class GradeSelectComponent implements ControlValueAccessor {
   selectGrade: GradeModel | any;
   propagateChange = (_: any) => { }
   isDisabled:boolean = false;
-  _grades: GradeModel[] = [];
-  grade: string = "";
 
-  constructor(private gradeSvc:GradeService) { 
-  }
+  constructor(private gradeSvc:GradeService) { }
 
   async writeValue(obj: any) {
     try {
@@ -47,11 +44,11 @@ export class GradeSelectComponent implements ControlValueAccessor {
   }
 
   getGrades(){
-    return this.gradeSvc.getGrades();
+    return this.gradeSvc.grades$;
   } 
 
-  onGradeClicked(grades:GradeModel, accordion:IonAccordionGroup){
-    this.selectGrade = grades;
+  onGradeClicked(gradeId: number, accordion:IonAccordionGroup){
+    this.selectGrade = gradeId;
     accordion.value='';
     this.propagateChange(this.selectGrade);
   }

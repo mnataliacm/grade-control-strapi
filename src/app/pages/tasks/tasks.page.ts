@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { lastValueFrom } from 'rxjs';
-import { TaskFormComponent, TaskModel } from 'src/app/core';
+import { HttpClientProvider, TaskFormComponent, TaskModel } from 'src/app/core';
 import { TaskService } from 'src/app/core/services/task.service';
 import { isLowResolution as lowres } from 'src/app/utils/screen.utils';
 
@@ -21,13 +20,12 @@ export class TasksPage {
     private alert: AlertController,
     private modal: ModalController,
     private translate: TranslateService,
-  ) {
-  }
+    private api:HttpClientProvider,
+  ) {}
 
   getTasks() {
     return this.taskSvc.tasks$;
   }
-
 
   onEditTask(task: any){
     this.presentTaskForm(task);

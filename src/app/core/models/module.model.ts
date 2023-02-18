@@ -2,6 +2,6 @@ export interface ModuleModel {
   id: number;
   name: string;
   acronym: string;
-  level: string;
-  grade: string;
+  gradeId?: number;
+  grade?: string;
 }

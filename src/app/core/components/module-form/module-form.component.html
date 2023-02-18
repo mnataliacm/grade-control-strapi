@@ -20,28 +20,29 @@
       </ion-label>
       <ion-input type="text" placeholder="Introduce las siglas" formControlName="acronym"></ion-input>
     </ion-item>
-    <ion-item >          
-      <ion-select placeholder="{{ 'assign.level' | translate}}" formControlName="level" >
-        <ion-select-option value="first" class="secondary" style="background-color: black;">{{ 'assign.first' | translate}}</ion-select-option>
-        <ion-select-option value="second">{{ 'assign.second' | translate}}</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <!-- <ion-item>
-      <app-grade-select formControlName="grade"></app-grade-select>
-    </ion-item> -->
     <ion-item>
       <ion-list>
         <ion-label>{{ 'detail.grade' | translate }}</ion-label>
         <ion-item>
           <ion-select placeholder="{{ 'assign.grade' | translate}}" formControlName="grade">
-            <ion-select-option value="SMR">SMR</ion-select-option>
-            <ion-select-option value="DAM">DAM</ion-select-option>
-            <ion-select-option value="DAW">DAW</ion-select-option>
-            <ion-select-option value="ASIR">ASIR</ion-select-option>
+            <ion-select-option value="1">1º SMR</ion-select-option>
+            <ion-select-option value="2">2º SMR</ion-select-option>
+            <ion-select-option value="3">1º DAM</ion-select-option>
+            <ion-select-option value="4">2º DAM</ion-select-option>
+            <ion-select-option value="5">1º DAW</ion-select-option>
+            <ion-select-option value="6">2º DAW</ion-select-option>
+            <ion-select-option value="7">1º ASIR</ion-select-option>
+            <ion-select-option value="8">2º ASIR</ion-select-option>
+            <ion-select-option value="9">CIBER</ion-select-option>
+            <ion-select-option value="10">DVRV</ion-select-option>
+            <ion-select-option value="11">IABD</ion-select-option>
           </ion-select>         
-        </ion-item>      
+        </ion-item>   
       </ion-list>
     </ion-item>
+    <!-- <ion-item>
+      <app-grade-select formControlName="grade"></app-grade-select>
+    </ion-item> -->
   </form>
 </ion-content>
 <ion-footer>

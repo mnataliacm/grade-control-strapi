@@ -1,6 +1,7 @@
 <ion-item-sliding #sliding [disabled]="!isLowResolution()">
   <ion-item>
     <ion-label>{{task.name}}</ion-label>
+    <ion-label>{{task.type}}, {{task.info}}</ion-label>
     <ion-button class="item-expanded" *ngIf="!isLowResolution()" slot="end" fill="clear" (click)="onEditClick(sliding)">
       <div class="vertical">
         <ion-icon name="create" ></ion-icon>

@@ -8,7 +8,7 @@
 </ion-header>
 <ion-content class="ion-padding">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
-    <ion-item>
+    <!-- <ion-item>
       <ion-list>
         <ion-label>{{ 'detail.grade' | translate }}</ion-label>
         <ion-item>
@@ -20,8 +20,8 @@
           </ion-select>         
         </ion-item>      
       </ion-list>
-    </ion-item>
-    <ion-item>
+    </ion-item> -->
+    <!-- <ion-item>
       <ion-list>
         <ion-label>{{ 'detail.level' | translate }}</ion-label>
         <ion-item>          
@@ -31,11 +31,7 @@
           </ion-select>
         </ion-item>
       </ion-list>
-    </ion-item>
-    <ion-item>
-      <ion-label>{{ 'detail.module' | translate }}</ion-label>
-      <ion-input formControlName="module"></ion-input>
-    </ion-item>
+    </ion-item> -->
     <ion-item>
       <ion-label>{{ 'detail.name' | translate }}</ion-label>
       <ion-input formControlName="name"></ion-input>
@@ -48,15 +44,19 @@
       <ion-label>{{ 'detail.info' | translate }}</ion-label>
       <ion-input formControlName="info"></ion-input>
     </ion-item>
-    <ion-label>{{ 'detail.date' | translate }}: </ion-label>
-    <app-date-time-selectable formControlName="date"></app-date-time-selectable>
+    <!-- <ion-item>
+      <ion-label>{{ 'detail.module' | translate }}</ion-label>
+      <ion-input formControlName="module"></ion-input>
+    </ion-item> -->
+    <!-- <ion-label>{{ 'detail.date' | translate }}: </ion-label>
+    <app-date-time-selectable formControlName="date"></app-date-time-selectable> -->
 
-    <ion-button [disabled]="!form.valid" (click)="onSubmit()" color="success" size="small">
+    <!-- <ion-button [disabled]="!form.valid" (click)="onSubmit()" color="success" size="small">
       {{ (form.controls['id'].value=="-1")? ('button.new' | translate):('button.edit' | translate) }}
     </ion-button>
     <ion-button routerLink="tasks" color="danger" size="small">
       {{ 'button.cancel' | translate }}
-    </ion-button>
+    </ion-button> -->
   </form>
 
 </ion-content>

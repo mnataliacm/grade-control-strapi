@@ -17,7 +17,6 @@ export class ModuleFormComponent {
       this.form.controls['id'].setValue(module.id);
       this.form.controls['name'].setValue(module.name);
       this.form.controls['acronym'].setValue(module.acronym);
-      this.form.controls['level'].setValue(module.level);
       this.form.controls['grade'].setValue(module.grade);
       this.mode = "Edit";
     }
@@ -31,7 +30,6 @@ export class ModuleFormComponent {
       id:[null],
       name:['', [Validators.required]],
       acronym:[''],
-      level:[''],
       grade:['']
     });
   }

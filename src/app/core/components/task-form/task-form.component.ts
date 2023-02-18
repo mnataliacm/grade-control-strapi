@@ -33,11 +33,11 @@ export class TaskFormComponent {
     this.form = this.fb.group({
       id:[null],
       name:['', [Validators.required]],
-      type:[""],
-      info:[""],
-      level:["", Validators.required],
-      grade:["", Validators.required],
-      module:["", Validators.required],
+      type:[''],
+      info:[''],
+      level:[''],
+      grade:[''],
+      module:[''],
       date:[new Date().toISOString()]
     });
   }
