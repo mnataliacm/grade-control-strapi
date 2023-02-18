@@ -1,0 +1,1 @@
+# grade-control-strapi
