@@ -48,4 +48,10 @@ export class AppComponent implements AfterViewInit {
     this.router.navigate(['login']);
   }
 
+  spanish() {
+    this.translate.setDefaultLang('es');
+  }
+  english() {
+    this.translate.setDefaultLang('en');
+  }
 }
