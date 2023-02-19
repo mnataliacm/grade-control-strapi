@@ -36,9 +36,9 @@ export class ModulesPage {
     return this.gradeSvc.grades$;
   }
 
-  getFilteredByGrade(grade:string|null){
-    return this._modules.filter(s=>s.grade == grade);
-  }
+  // getFilteredByGrade(grade:string|null){
+  //   return this._modules.filter(s=>s.grade == grade);
+  // }
 
   async presentModuleForm(module: ModuleModel){
     const modal = await this.modal.create({

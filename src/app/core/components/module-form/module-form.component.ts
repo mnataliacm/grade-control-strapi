@@ -12,6 +12,7 @@ export class ModuleFormComponent {
 
   form:FormGroup;
   mode:"New" | "Edit" = "New";
+  currentGrade = undefined;
   @Input('module') set module(module:ModuleModel){
     if(module){
       this.form.controls['id'].setValue(module.id);
@@ -29,7 +30,7 @@ export class ModuleFormComponent {
     this.form = this.fb.group({
       id:[null],
       name:['', [Validators.required]],
-      acronym:[''],
+      acronym:['', [Validators.required]],
       grade:['']
     });
   }
@@ -41,4 +42,5 @@ export class ModuleFormComponent {
   onDismiss(result: any){
     this.modal.dismiss(null, 'cancel');
   }
+
 }
