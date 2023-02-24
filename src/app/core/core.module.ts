@@ -10,7 +10,7 @@ import en from '@angular/common/locales/en';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 import { DateTimeSelectableComponent } from './components/date-time-selectable/date-time-selectable.component';
-import { AssignScheduleComponent, GradeComponent, GradeFormComponent, GradeSelectComponent, ModuleComponent, ModuleFormComponent, ProfileComponent, StudentComponent, StudentFormComponent, TaskComponent, TaskFormComponent } from './components';
+import { AssignScheduleComponent, GradeComponent, GradeFormComponent, GradeSelectComponent, ModuleComponent, ModuleFormComponent, ModuleSelectComponent, ProfileComponent, StudentComponent, StudentFormComponent, TaskComponent, TaskFormComponent } from './components';
 
 registerLocaleData(en);
 registerLocaleData(es);
@@ -28,6 +28,7 @@ registerLocaleData(es);
     StudentFormComponent,
     ModuleComponent,
     ModuleFormComponent,
+    ModuleSelectComponent,
     TaskComponent,
     TaskFormComponent,
   ],
@@ -70,6 +71,7 @@ registerLocaleData(es);
     StudentFormComponent,
     ModuleComponent,
     ModuleFormComponent,
+    ModuleSelectComponent,
     TaskComponent,
     TaskFormComponent,
   ],

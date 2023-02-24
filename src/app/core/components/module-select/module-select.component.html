@@ -9,8 +9,8 @@
     </ion-item>
     <div class="ion-padding" slot="content">
       <ion-list>
-        <ion-item *ngFor="let grade of (getGrades() | async)" button detail (click)="onItemClicked(grade, accordion)">
-          <ion-label>{{ grade.acronym }}</ion-label>
+        <ion-item *ngFor="let module of (getModules() | async)" button detail (click)="onItemClicked(module, accordion)">
+          <ion-label>{{ module.acronym }}</ion-label>
         </ion-item>
       </ion-list>
     </div>

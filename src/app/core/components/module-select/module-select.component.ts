@@ -1,32 +1,33 @@
 import { Component, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { IonAccordionGroup } from '@ionic/angular';
-import { GradeModel } from '../../models';
-import { GradeService } from '../../services';
+import { ModuleModel } from '../../models';
+import { ModuleService } from '../../services/module.service';
+import { GradeSelectComponent } from '../grade-select/grade-select.component';
 
-export const GRADE_PROFILE_VALUE_ACCESSOR: any = {
+export const MODULE_PROFILE_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => GradeSelectComponent),
   multi: false
 };
 
 @Component({
-  selector: 'app-grade-select',
-  templateUrl: './grade-select.component.html',
-  styleUrls: ['./grade-select.component.scss'],
-  providers:[GRADE_PROFILE_VALUE_ACCESSOR]
+  selector: 'app-module-select',
+  templateUrl: './module-select.component.html',
+  styleUrls: ['./module-select.component.scss'],
+  providers:[MODULE_PROFILE_VALUE_ACCESSOR]
 })
-export class GradeSelectComponent implements ControlValueAccessor {
+export class ModuleSelectComponent implements ControlValueAccessor {
 
   selectItem: any;
   propagateChange = (_: any) => { }
   isDisabled:boolean = false;
 
-  constructor(private gradeSvc:GradeService) { }
+  constructor(private moduleSvc:ModuleService) { }
 
   async writeValue(obj: any) {
     try {
-      this.selectItem = await this.gradeSvc.getGradeById(obj);
+      this.selectItem = await this.moduleSvc.getModuleById(obj);
     } catch (error) {
       console.log("No se ha podido recupera los datos: " + error);
     }
@@ -43,14 +44,13 @@ export class GradeSelectComponent implements ControlValueAccessor {
     this.isDisabled = isDisabled;
   }
 
-  getGrades(){
-    return this.gradeSvc.grades$;
+  getModules(){
+    return this.moduleSvc.modules$;
   } 
 
-  onItemClicked(grade: GradeModel, accordion:IonAccordionGroup){
+  onItemClicked(grade: ModuleModel, accordion:IonAccordionGroup){
     this.selectItem = grade;
     accordion.value='';
     this.propagateChange(this.selectItem.acronym);
   }
-
 }
