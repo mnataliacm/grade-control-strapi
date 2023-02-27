@@ -1,28 +1,27 @@
 import { Component, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { IonAccordionGroup } from '@ionic/angular';
-import { GradeModel } from '../../models';
 import { GradeService } from '../../services';
 
 export const GRADE_PROFILE_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => GradeSelectComponent),
-  multi: false
+  multi: true
 };
 
 @Component({
   selector: 'app-grade-select',
   templateUrl: './grade-select.component.html',
   styleUrls: ['./grade-select.component.scss'],
-  providers:[GRADE_PROFILE_VALUE_ACCESSOR]
+  providers: [GRADE_PROFILE_VALUE_ACCESSOR]
 })
 export class GradeSelectComponent implements ControlValueAccessor {
 
   selectItem: any;
   propagateChange = (_: any) => { }
-  isDisabled:boolean = false;
+  isDisabled: boolean = false;
 
-  constructor(private gradeSvc:GradeService) { }
+  constructor(private gradeSvc: GradeService) { }
 
   async writeValue(obj: any) {
     try {
@@ -43,14 +42,14 @@ export class GradeSelectComponent implements ControlValueAccessor {
     this.isDisabled = isDisabled;
   }
 
-  getGrades(){
+  getGrades() {
     return this.gradeSvc.grades$;
-  } 
+  }
 
-  onItemClicked(grade: GradeModel, accordion:IonAccordionGroup){
-    this.selectItem = grade;
-    accordion.value='';
-    this.propagateChange(this.selectItem.acronym);
+  onItemClicked(gradeId: any, accordion: IonAccordionGroup) {
+    this.selectItem = gradeId;
+    accordion.value = '';
+    this.propagateChange(this.selectItem);
   }
 
 }

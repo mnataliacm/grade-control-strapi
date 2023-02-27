@@ -1,3 +1,5 @@
+
+
 export interface TaskModel {
   id: number;
   name: string;
@@ -6,5 +8,6 @@ export interface TaskModel {
   level?: string;
   grade?: string;
   module?: string;
+  moduleId?: number;
   date?: string;
 }

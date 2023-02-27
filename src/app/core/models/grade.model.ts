@@ -3,4 +3,5 @@ export interface GradeModel {
   name: string;
   acronym: string;
   moduleId?: number;
+  //module: [string];
 }

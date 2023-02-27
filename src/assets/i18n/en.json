@@ -17,6 +17,8 @@
   "detail": {
     "titleS": "Studens data",
     "titleT": "Task data",
+    "titleG": "Grade data",
+    "titleM": "Module date",
     "titleA": "Data assignment",
     "name": "Name",
     "surname": "Surname",
@@ -25,6 +27,7 @@
     "grade": "Grade",
     "level": "Level",
     "module": "Module",
+    "acronym": "Acronym",
     "type": "Task",
     "info": "Information",
     "warning": "Warning",
@@ -49,6 +52,7 @@
   },
   "assign": {
     "grade": "Select grade",
+    "module": "Select module",
     "level": "Select level",
     "task": "Select task",
     "date": "Select date and time",
@@ -71,7 +75,15 @@
   "about": {
     "line1": "Practice for 2 DAM - Modules: Data Access and HLC",
     "line2": "Application developed by Natalia Castillo Muñoz",
-    "line3": "Project carried out with Ionic and Angular"
+    "line3": "Project carried out with Ionic and Angular",
+    "study": "Studies",
+    "dam": "Multiplatform Application Development",
+    "smr": "Microcomputer systems and networks",
+    "eso": "Compulsory Secondary Education (Adult School)",
+    "experience": "Experience",
+    "dual": "DUAL Vocational Training, Multiplatform Application Development",
+    "fct": "Formation in work centers, Microcomputer systems and networks"
+
   },
   "footer": {
     "grade": "2º Cross-Platform Application Development",

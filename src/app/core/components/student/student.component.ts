@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AlertController, IonItemSliding, ModalController } from '@ionic/angular';
+import { IonItemSliding } from '@ionic/angular';
 import { GradeModel, StudentModel } from '../../models';
-import { GradeService, HttpClientProvider, StudentService } from '../../services';
+import { GradeService } from '../../services';
 import { isLowResolution as lowres} from 'src/app/utils/screen.utils';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-student',
@@ -15,21 +14,18 @@ export class StudentComponent {
   @Output() onEdit = new EventEmitter;
   @Output() onDelete = new EventEmitter;
   @Input() student:StudentModel | any ;
-  @Input() grade:any;
+  @Input() grade:GradeModel | any;
   isLowResolution:()=>boolean = lowres;
 
   constructor(
-    private studentSvc:StudentService,
     private gradeSvc:GradeService,
-    private translate:TranslateService,
-    private api:HttpClientProvider,
   ){}
 
   getGrades() {
     return this.gradeSvc.grades$;
   }
 
-  getFilteredStudents(grade:string|null){
+  getFilteredStudents(grade:string){
     return this.student.filter((s:any)=>s.grade == grade);
   }
 

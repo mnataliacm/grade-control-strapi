@@ -3,7 +3,8 @@ export interface StudentModel {
   name: string;
   surname: string;
   email: string;
-  level: string;
-  grade: string;
-  picture: string;    
+  level?: string;
+  grade?: string;
+  gradeId?: number;
+  picture?: string;    
 }

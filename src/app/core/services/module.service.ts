@@ -14,7 +14,7 @@ export class ModuleService {
   constructor(private api: ApiService) { this.refresh(); }
 
   async refresh() {
-    this.api.get('/api/modules/?populate[0]=grade').subscribe({
+    this.api.get('/api/modules/?populate=grade').subscribe({
       next: response => {
         console.log(response);
         var array: ModuleModel[] = (response.data as Array<any>).
@@ -77,7 +77,7 @@ export class ModuleService {
   //   });
   // } 
 
-  createModule(module: ModuleModel) {
+  async createModule(module: ModuleModel) {
     this.api.post(`/api/modules/?populate=grade`, {
       data: {
         name: module.name,
@@ -94,7 +94,7 @@ export class ModuleService {
     });
   }
 
-  updateModule(module: ModuleModel) {
+  async updateModule(module: ModuleModel) {
     this.api.put(`/api/modules/${module.id}`, {
       data: {
         name: module.name,

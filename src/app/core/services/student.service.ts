@@ -7,17 +7,17 @@ import { ApiService } from './api.service';
 @Injectable({
   providedIn: 'root'
 })
+
 export class StudentService {
 
   private _studentsSubject:BehaviorSubject<StudentModel[]> = new BehaviorSubject<StudentModel[]>([]);
   public _students$ = this._studentsSubject.asObservable();
 
-  constructor(private api:ApiService) {
-      this.refresh();
-     }
+  constructor(
+    private api:ApiService) { this.refresh(); }
 
   async refresh(){
-    this.api.get(`/api/students/?populate=picture`).subscribe({
+    this.api.get(`/api/students/?populate=picture,grade`).subscribe({
       next:response=>{
         console.log(response);
         var array:StudentModel[] = (response.data as Array<any>).map<StudentModel>(data=>{
@@ -27,7 +27,7 @@ export class StudentService {
             surname: data.attributes.surname,
             email: data.attributes.email,
             level: data.attributes.level,        
-            grade: data.attributes.grade,
+            grade: data.attributes.grade.data?.attributes.acronym,
             picture: data.attributes.picture.data?
                       environment.api_url + data.attributes.picture.data.attributes.url:
                       ""                       
@@ -47,7 +47,7 @@ export class StudentService {
 
   getStudentById(id: number): Promise<StudentModel> {
     return new Promise<StudentModel>((resolve, reject)=>{
-      this.api.get(`/api/students/${id}?populate=picture`).subscribe({
+      this.api.get(`/api/students/${id}?populate=picture,grade`).subscribe({
         next:data=>{
           resolve({
             id:data.data.id,
@@ -55,7 +55,7 @@ export class StudentService {
             surname:data.data.attributes.surname,
             email:data.data.attributes.email,
             level:data.data.attributes.level,
-            grade:data.data.attributes.grade,
+            grade:data.data.attributes.grade.data?.attributes.acronym,
             picture:data.data.attributes.picture.data?
                     environment.api_url+data.data.attributes.picture.data?.attributes.url:
                     ""                       
@@ -74,13 +74,13 @@ export class StudentService {
       surname: student.surname,
       email: student.email,
       level: student.level,
-      grade: student.grade       
+      grade: student.grade, 
     }
     if(student['picture']){
       var id = await this.uploadImage(student['picture']);
       student['picture'] = 'id';
     }
-    this.api.post(`/api/students`,{
+    this.api.post(`/api/students/?populate=grade`,{
       data:_student
     }).subscribe({
       next:data=>{

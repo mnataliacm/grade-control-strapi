@@ -42,7 +42,7 @@ export class StudentFormComponent {
       surname:['', [Validators.required]],
       email:['', [Validators.required, Validators.email]],
       level:[''],
-      grade:[''],
+      grade:[0],
       picture:['']
     });
   }
@@ -55,7 +55,6 @@ export class StudentFormComponent {
     this.modal.dismiss(null, 'cancel');
   }
 
-  
   changePic(fileLoader: any){
     fileLoader.click();
     var that = this;
@@ -73,4 +72,5 @@ export class StudentFormComponent {
       reader.readAsDataURL(file);
     }
   }
+
 }

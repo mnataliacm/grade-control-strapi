@@ -9,7 +9,8 @@
 <ion-content class="ion-padding">
   <input id="fileLoader" type="file" #fileLoader name="files" title="Load Files" hidden>
   <ion-img (click)="changePic(fileLoader)" *ngIf="currentImage.value" [src]="currentImage$ | async"></ion-img>
-  <ion-img (click)="changePic(fileLoader)" *ngIf="!currentImage.value" src="https://ionicframework.com/docs/img/demos/thumbnail.svg"></ion-img>
+  <ion-img (click)="changePic(fileLoader)" *ngIf="!currentImage.value"
+    src="https://ionicframework.com/docs/img/demos/thumbnail.svg"></ion-img>
   <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
     <ion-item>
       <ion-label position="floating"> {{ 'detail.name' | translate }} </ion-label>
@@ -24,30 +25,15 @@
       <ion-input formControlName="email"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-list>
-        <ion-label>{{ 'detail.grade' | translate }}</ion-label>
-        <ion-item>          
-          <ion-select placeholder="{{ 'assign.grade' | translate}}" formControlName="grade">
-            <ion-select-option value="SMR">SMR</ion-select-option>
-            <ion-select-option value="DAM">DAM</ion-select-option>
-            <ion-select-option value="DAW">DAW</ion-select-option>
-            <ion-select-option value="ASIR">ASIR</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-list>
+      <ion-label position="floating">
+        {{ 'detail.grade' | translate }}
+      </ion-label>
+      <ion-input type="text" placeholder="Introduce curso" formControlName="grade"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-list>
-        <ion-label>{{ 'detail.level' | translate }}</ion-label>
-        <ion-item >          
-          <ion-select placeholder="{{ 'assign.level' | translate}}" formControlName="level" >
-            <ion-select-option value="first" class="secondary" style="background-color: black;">{{ 'assign.first' | translate}}</ion-select-option>
-            <ion-select-option value="second">{{ 'assign.second' | translate}}</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-list>
-    </ion-item>
-    <ion-button [disabled]="!form.valid" (click)="onSubmit()">{{mode=="Edit"?"Modificar":"Añadir"}}</ion-button>
+    <app-grade-select formControlName="grade"></app-grade-select>
+    <ion-button [disabled]="!form.valid" (click)="onSubmit()">
+      {{mode=="Edit"?"button.edit":"button.new" | translate}}
+    </ion-button>
     <ion-button routerLink="students" color="danger" size="small">
       {{ 'button.cancel' | translate }}
     </ion-button>

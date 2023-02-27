@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
 import { TaskModel } from '../models';
 import { ApiService } from './api.service';
@@ -10,15 +11,13 @@ import { ApiService } from './api.service';
 export class TaskService {
 
   private _tasksSubject:BehaviorSubject<TaskModel[]> = new BehaviorSubject<TaskModel[]>([]);
-  public tasks$ = this._tasksSubject.asObservable();
+  public _tasks$ = this._tasksSubject.asObservable();
+  momentjs:any = moment;
   
-  constructor(
-    private api:ApiService) {
-    this.refresh();
-   }
+  constructor(private api:ApiService) { this.refresh(); }
 
    async refresh(){
-    this.api.get(`/api/tasks/?populate=grade,module`).subscribe({
+    this.api.get(`/api/tasks/?populate=module`).subscribe({
       next:response=>{
         console.log(response);
         var array:TaskModel[] = (response.data as Array<any>).map<TaskModel>(data=>{
@@ -26,11 +25,10 @@ export class TaskService {
             id: data.id,
             name: data.attributes.name,
             type: data.attributes.type,
-            info: data.attributes.info,
-            // level: data.attributes.level,
-            // grade: data.attributes.grade.data.attributes.acronym,        
-            // module: data.attributes.module.data.attributes.acronym,  
-            //date: data.attributes.date          
+            info: data.attributes.info,       
+            module: data.attributes.module.data?.attributes.acronym,
+            //grade: data.attributes.module.data?.attributes.grade.data?.attributes.acronym,  
+            date: data.attributes.date        
           };
         });
         this._tasksSubject.next(array);     
@@ -47,16 +45,14 @@ export class TaskService {
 
   getTaskById(id:number): Promise<TaskModel> {
     return new Promise<TaskModel>((resolve, reject)=>{
-      this.api.get(`/api/tasks/${id}?populate=grade,module`).subscribe({
+      this.api.get(`/api/tasks/${id}?populate=module`).subscribe({
         next:data=>{
           resolve({
             id: data.id,
             name: data.data.attributes.name,
             type: data.data.attributes.type,
-            info: data.data.attributes.info,
-            level: data.data.attributes.level,
-            grade: data.data.attributes.grade.data.data.attributes.acronym,        
-            module: data.data.attributes.module.data.data.attributes.acronym,  
+            info: data.data.attributes.info,        
+            module: data.data.attributes.module.data?.data.attributes.acronym,  
             date: data.data.attributes.date     
           });
         },
@@ -68,15 +64,13 @@ export class TaskService {
   }
 
   async createTask(task: TaskModel){
-    this.api.post(`/api/tasks`,{
+    this.api.post(`/api/tasks/?populate=module`,{
       data:{
       name: task.name,
       type: task.type,
       info: task.info,
-      // level: task.level,
-      // grade: task.grade,
-      // module: task.module,
-      // date: task.date
+      module: task.module,
+      date: task.date
     }
   }).subscribe({
       next:data=>{
@@ -88,16 +82,14 @@ export class TaskService {
     });
   }
 
-  updateTask(task: TaskModel){
+  async updateTask(task: TaskModel){
     this.api.put(`/api/tasks/${task.id}`,{
       data:{
       name: task.name,
       type: task.type,
       info: task.info,
-      level: task.level,
-      grade: task.grade,
       module: task.module,
-      //date: task.date
+      date: task.date
     }
   }).subscribe({
       next:data=>{

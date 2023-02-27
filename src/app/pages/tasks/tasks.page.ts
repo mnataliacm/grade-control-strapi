@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
-import { TranslateService } from '@ngx-translate/core';
-import { HttpClientProvider, TaskFormComponent, TaskModel } from 'src/app/core';
+import { TaskFormComponent, TaskModel } from 'src/app/core';
 import { TaskService } from 'src/app/core/services/task.service';
-import { isLowResolution as lowres } from 'src/app/utils/screen.utils';
 
 @Component({
   selector: 'app-tasks',
@@ -12,37 +10,32 @@ import { isLowResolution as lowres } from 'src/app/utils/screen.utils';
 })
 export class TasksPage {
 
-  _tasks: any;
-  isLowResolution = lowres;
-
   constructor(
     private taskSvc: TaskService,
     private alert: AlertController,
     private modal: ModalController,
-    private translate: TranslateService,
-    private api:HttpClientProvider,
-  ) {}
+  ) { }
 
   getTasks() {
-    return this.taskSvc.tasks$;
+    return this.taskSvc._tasks$;
   }
 
-  onEditTask(task: any){
+  onEditTask(task: TaskModel) {
     this.presentTaskForm(task);
   }
 
-  async presentTaskForm(task:TaskModel){
+  async presentTaskForm(task: TaskModel) {
     const modal = await this.modal.create({
-      component:TaskFormComponent,
-      componentProps:{
-        task:task
+      component: TaskFormComponent,
+      componentProps: {
+        task: task
       },
-      cssClass:"modal-full-right-side"
+      cssClass: "modal-full-right-side"
     });
     modal.present();
-    modal.onDidDismiss().then(result=>{
-      if(result && result.data){
-        switch(result.data.mode){
+    modal.onDidDismiss().then(result => {
+      if (result && result.data) {
+        switch (result.data.mode) {
           case 'New':
             this.taskSvc.createTask(result.data.task);
             break;
@@ -55,7 +48,11 @@ export class TasksPage {
     });
   }
 
-  async onDeleteAlert(task:TaskModel){
+  async onDeleteTask(task: TaskModel) {
+    this.onDeleteAlert(task);
+  }
+
+  async onDeleteAlert(task: TaskModel) {
     const alert = await this.alert.create({
       header: 'Atención',
       message: '¿Está seguro de que desear borrar la tarea?',
@@ -80,27 +77,25 @@ export class TasksPage {
     const { role } = await alert.onDidDismiss();
   }
 
-  async onDeleteTask(task:TaskModel){
-    this.onDeleteAlert(task);
-  }
 
-  async presentForm(_class: typeof TaskFormComponent, onDismiss:(arg0: any)=>void){
+
+  async presentForm(_class: typeof TaskFormComponent, onDismiss: (arg0: any) => void) {
     const modal = await this.modal.create({
-      component:_class,
-      cssClass:"modal-full-right-side"
+      component: _class,
+      cssClass: "modal-full-right-side"
     });
     modal.present();
-    modal.onDidDismiss().then(result=>{
-      if(result && result.data){
+    modal.onDidDismiss().then(result => {
+      if (result && result.data) {
         onDismiss(result.data);
       }
     });
   }
 
-  onNewItem(){
-    this.presentForm(TaskFormComponent, (data)=>{
+  onNewItem() {
+    this.presentForm(TaskFormComponent, (data) => {
       this.taskSvc.createTask(data.task);
     });
   }
-  
+
 }

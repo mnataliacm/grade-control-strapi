@@ -1,8 +1,9 @@
-import { Component, forwardRef, OnDestroy, OnInit } from '@angular/core';
+import { Component, forwardRef, OnDestroy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { IonAccordionGroup, IonDatetime } from '@ionic/angular';
 import * as moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
+import { LocaleService } from '../../services/locale.service';
 
 export const DATETIME_PROFILE_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -16,13 +17,18 @@ export const DATETIME_PROFILE_VALUE_ACCESSOR: any = {
   styleUrls: ['./date-time-selectable.component.scss'],
   providers:[DATETIME_PROFILE_VALUE_ACCESSOR]
 })
-export class DateTimeSelectableComponent implements OnInit, ControlValueAccessor, OnDestroy {
+export class DateTimeSelectableComponent implements  ControlValueAccessor, OnDestroy {
+
   hasValue = false;
 
-  constructor(
-  ){
-
+  isWeekday = (dateString: string) => {
+    const date = new Date(dateString);
+    const utcDay = date.getUTCDay();
+    
+    return utcDay !== 0 && utcDay !== 6;
   }
+
+  constructor(public locale: LocaleService,){}
   
   ngOnDestroy(): void {
     this.dateSubject.complete();
@@ -36,9 +42,6 @@ export class DateTimeSelectableComponent implements OnInit, ControlValueAccessor
 
   formatDate(date:moment.Moment){
     return date.format('YYYY-MM-DDTHH:mmZ');
-  }
-
-  ngOnInit() {
   }
 
   writeValue(obj: any): void {
@@ -59,8 +62,7 @@ export class DateTimeSelectableComponent implements OnInit, ControlValueAccessor
     this.isDisabled = isDisabled;
   }
 
-  onDateTimeChanged(event:any, accordion:IonAccordionGroup){
-    
+  onDateTimeChanged(event:any, accordion:IonAccordionGroup){ 
     setTimeout(() => {
       var value = this.formatDate(moment(event.detail.value));
       if(value!=this.dateSubject.getValue())
@@ -71,17 +73,17 @@ export class DateTimeSelectableComponent implements OnInit, ControlValueAccessor
 
         accordion.value = '';
         this.propagateChange(value);
-      }
-      
+      }      
     }, 100);
   }
 
   onCancel(datetime:IonDatetime, accordion:IonAccordionGroup){
-    datetime.cancel();
     accordion.value='';
+    datetime.cancel();    
   }
 
   onConfirm(datetime:IonDatetime, accordion:IonAccordionGroup){
+    accordion.value=''
     datetime.confirm();
   }
 

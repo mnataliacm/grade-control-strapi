@@ -2,8 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TaskModel } from '../../models';
 import { isLowResolution as lowres} from 'src/app/utils/screen.utils';
 import { IonItemSliding } from '@ionic/angular';
-import { GradeService, HttpClientProvider, TaskService } from '../../services';
-import { TranslateService } from '@ngx-translate/core';
+import { LocaleService } from '../../services/locale.service';
 
 @Component({
   selector: 'app-task',
@@ -15,15 +14,9 @@ export class TaskComponent {
   @Output() onEdit = new EventEmitter;
   @Output() onDelete = new EventEmitter;
   @Input() task:TaskModel | any;
-  @Input() grade:any;
   isLowResolution = lowres;
-  constructor(
-    private taskSvc:TaskService,
-    
-    private gradeSvc:GradeService,
-    private translate:TranslateService,
-    private api:HttpClientProvider,
-  ) { }
+
+  constructor(public locale:LocaleService ) { }
 
   onEditClick(slide:IonItemSliding){
     slide.close();

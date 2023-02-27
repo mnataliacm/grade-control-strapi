@@ -15,8 +15,10 @@
     "login": "BIENVENID@"
   },
   "detail": {
-    "titleS": "Datos de los alumnos",
+    "titleS": "Datos del alumn@",
     "titleT": "Datos de la tarea",
+    "titleG": "Datos del curso",
+    "titleM": "Datos del modulo",
     "titleA": "Asignar fechas",
     "name": "Nombre",
     "surname": "Apellidos",
@@ -25,6 +27,7 @@
     "grade": "Curso",
     "level": "Nivel",
     "module": "Modulo",
+    "acronym": "Siglas",
     "type": "Tarea",
     "info": "Información",
     "warning": "Advertencia",
@@ -48,6 +51,7 @@
   },
   "assign": {
     "grade": "Seleccione curso",
+    "module": "Seleccione modulo",
     "level": "Seleccione nivel",
     "task": "Seleccione tarea ",
     "date": "Seleccione fecha y hora",
@@ -73,7 +77,15 @@
     "line2": "Aplicación desarrollada por Natalia Castillo Muñoz",
     "line3": "Proyecto realizado usando Ionic, Angular, Cordoba, Fullcalendar, JsonServer, APIRest.",
     "line4": "Utilizo las siguientes características: componentes, páginas, módulo compartido, pipes, modelos de datos, servicio de traducción español/ingles, directivas, decoradores, modales, alerts, formularios, iconos e imágenes.",
-    "line5": "Para las operaciones CRUD uso HttpClient con json-server y guardo los datos en API/data.json"
+    "line5": "Para las operaciones CRUD uso HttpClient con json-server y guardo los datos en API/data.json",
+    "study": "Estudios",
+    "dam": "CFGS Desarrollo de Aplicaciones Multiplataforma",
+    "smr": "CFGM Sistemas Microinformáticos y Redes",
+    "eso": "E.S.O. (Escuela de Adultos - E.S.A.)",
+    "experience": "Experiencia",
+    "dual": "FP DUAL, Desarrollo de Aplicaciones Multiplataforma",
+    "fct": "Formación en Centros de Trabajo, Sistemas Microinformáticos y Redes"
+
   },
   "footer": {
     "grade": "2º Desarrollo de Aplicaciones Multiplataforma",

@@ -12,9 +12,7 @@ export class GradeService {
   private _gradeSubject:BehaviorSubject<GradeModel[]> = new BehaviorSubject<GradeModel[]>([]);
   public grades$ = this._gradeSubject.asObservable();
   
-  constructor(
-    private api: ApiService) { 
-    this.refresh();
+  constructor(private api: ApiService) { this.refresh();
   }
 
   async refresh(){

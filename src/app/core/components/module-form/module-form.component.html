@@ -1,60 +1,42 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Datos del módulo</ion-title>
+    <ion-title>{{ 'detail.titleM' | translate }}</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="onDismiss(null)">Cerrar</ion-button>
+      <ion-button (click)="onDismiss(null)">{{ 'button.close' | translate }}</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 <ion-content class="ion-padding">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
     <ion-item>
       <ion-label position="floating">
-        Nombre
+        {{ 'detail.name' | translate }}
       </ion-label>
       <ion-input type="text" placeholder="Introduce el nombre" formControlName="name"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">
-        Siglas
+        {{ 'detail.acronym' | translate }}
       </ion-label>
       <ion-input type="text" placeholder="Introduce las siglas" formControlName="acronym"></ion-input>
     </ion-item>
-    <ion-item >
-    <ion-label position="floating" >
-      Curso
-    </ion-label>
-    <ion-input type="text" placeholder="Introduce curso" formControlName="grade"></ion-input>
-  </ion-item>
-
-    <ion-item> 
-      <ion-list>
-        <ion-label >{{ 'detail.grade' | translate }}</ion-label>
-        <ion-item>
-          <ion-select interface="popover" 
-          placeholder="{{ 'assign.grade' | translate}}" formControlName="grade">
-            <ion-select-option [value]="1">1º SMR</ion-select-option>
-            <ion-select-option [value]="2">2º SMR</ion-select-option>
-            <ion-select-option [value]="3">1º DAM</ion-select-option>
-            <ion-select-option [value]="4">2º DAM</ion-select-option>
-            <ion-select-option [value]="5">1º DAW</ion-select-option>
-            <ion-select-option [value]="6">2º DAW</ion-select-option>
-          </ion-select>         
-        </ion-item>   
-      </ion-list>
+    <ion-item>
+      <ion-label position="floating">
+        {{ 'detail.grade' | translate }}
+      </ion-label>
+      <ion-input type="text" placeholder="Introduce curso" formControlName="grade"></ion-input>
     </ion-item>
-
-    <!-- <ion-item>
-      <app-grade-select ></app-grade-select>
-    </ion-item> -->
-    
+    <app-grade-select formControlName="grade"></app-grade-select>
   </form>
 </ion-content>
 <ion-footer>
   <ion-grid>
     <ion-row>
       <ion-col class="ion-text-center">
-        <ion-button [disabled]="!form.valid" (click)="onSubmit()">{{mode=="Edit"?"Modificar":"Añadir"}}</ion-button>
+        <ion-button [disabled]="!form.valid" (click)="onSubmit()">
+          {{mode=="Edit"?"button.edit":"button.new" | translate}}
+        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

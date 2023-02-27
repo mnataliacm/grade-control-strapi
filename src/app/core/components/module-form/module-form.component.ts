@@ -31,7 +31,7 @@ export class ModuleFormComponent {
       id:[null],
       name:['', [Validators.required]],
       acronym:['', [Validators.required]],
-      grade:['']
+      grade:[0]
     });
   }
 

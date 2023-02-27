@@ -1,7 +1,7 @@
 <ion-accordion-group #accordion>
   <ion-accordion value="first">
     <ion-item slot="header" color="light">
-      <ng-container *ngIf="selectItem!=null">
+      <ng-container *ngIf="selectItem">
         <ion-label>{{selectItem?.acronym}}</ion-label>
       </ng-container>
 

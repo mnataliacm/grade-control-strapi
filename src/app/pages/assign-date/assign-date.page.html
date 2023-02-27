@@ -13,13 +13,13 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-</ion-content> -->
+</ion-content>
 
-<!-- 
+
 <ion-content class="ion-padding">
   <ion-row >
 
-    <ion-col *ngFor="let task of _tasks">
+    <ion-col *ngFor="let task of (getTasks() | async)">
 
       <ion-card>
         <ion-card-content>
@@ -28,7 +28,7 @@
           <ion-card-subtitle>{{task.name}}</ion-card-subtitle>
         </ion-card-content>
         <ion-card-content>
-          <app-date-time-select [selectedDateTime]="task.date" (onDatetimeChange)="onTaskDateTime($event, task)"></app-date-time-select>
+          <app-date-time-selectable [selectedDateTime]="task.date" (onDatetimeChange)="onTaskDateTime($event, task)"></app-date-time-selectable>
         </ion-card-content>
       </ion-card>
 

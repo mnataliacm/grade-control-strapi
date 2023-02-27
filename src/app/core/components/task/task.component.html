@@ -2,6 +2,9 @@
   <ion-item>
     <ion-label>{{task.name}}</ion-label>
     <ion-label>{{task.type}}, {{task.info}}</ion-label>
+    <ion-label>{{task.module}}</ion-label>
+    <ion-label>{{task.date | date:'short':undefined:locale.locale}}</ion-label>
+
     <ion-button class="item-expanded" *ngIf="!isLowResolution()" slot="end" fill="clear" (click)="onEditClick(sliding)">
       <div class="vertical">
         <ion-icon name="create" ></ion-icon>

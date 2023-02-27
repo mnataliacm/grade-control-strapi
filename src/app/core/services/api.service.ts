@@ -12,7 +12,6 @@ export class ApiService {
   ) {
   }
   
-
   setToken(token: string){
     this.api_token = token;
   }

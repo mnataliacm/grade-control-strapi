@@ -10,7 +10,7 @@ import { TaskModel, TaskService } from 'src/app/core';
 })
 export class AssignDatePage {
 
-  _tasks: any;
+  //_tasks: any;
   selectedDateTime: string = '';
   propagateChange = (_: any) => { }
   isDisabled: boolean = false;
@@ -18,19 +18,11 @@ export class AssignDatePage {
   constructor(
 
     private taskSvc: TaskService,
-    private alert: AlertController,
-    private translate: TranslateService,
   ) {}
 
-  ionViewWillEnter() {
-    this.getAllTasks();
-  }
 
-  getAllTasks() {
-    this.taskSvc.getListTask().subscribe(response => {
-      console.log(response);
-      this._tasks = response;
-    })
+  getTasks() {
+    this.taskSvc._tasks$;
   }
   
   isWeekday = (dateString: string) => {
@@ -78,8 +70,12 @@ export class AssignDatePage {
 
   onTaskDateTime(event:any, task:TaskModel){
     task.date = event;
-    this.taskSvc.updateTask(task.id, task);
+    this.taskSvc.updateTask(task);
     console.log(event);
+  }
+
+  onNewAssign() {
+    
   }
 
 }
