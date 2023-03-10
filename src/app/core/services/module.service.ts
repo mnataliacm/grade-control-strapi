@@ -56,30 +56,18 @@ export class ModuleService {
     });
   }
 
-  // createModule(module:ModuleModel){
-  //   var _module = {
-  //       name: module.name,
-  //       acronym: module.acronym,
-  //       // grade: module.grade         
-  //   }
-  //   // if(module['grade']){
-  //   //   var id = this.gradeSvc.getGradeById(module['grade']);
-  //   // }
-  //   this.api.post(`api/modules`,{
-  //     data:_module
-  //   }).subscribe({
-  //     next:data=>{
-  //       this.refresh();
-  //     },
-  //     error:err=>{
-  //       console.log(err);
-  //     }
-  //   });
-  // } 
+  getTotal(){
+    var id = 1;
+    this.getModules().forEach(value => {
+      id += 1;
+    })
+    return id;
+  }
 
   async createModule(module: ModuleModel) {
     this.api.post(`/api/modules/?populate=grade`, {
       data: {
+        id: this.getTotal(),
         name: module.name,
         acronym: module.acronym,
         grade: module.grade,

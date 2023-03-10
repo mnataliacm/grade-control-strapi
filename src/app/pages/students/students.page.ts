@@ -36,6 +36,14 @@ export class StudentsPage {
     return this._students.filter(s=>s.grade == grade);
   }
 
+  getTotal(){
+    var total = 0;
+    this.studentSvc.getStudents().forEach(value => {
+      total += 1;
+    })
+    return total;
+  }
+
   async presentStudentForm(student:StudentModel){
     const modal = await this.modal.create({
       component:StudentFormComponent,

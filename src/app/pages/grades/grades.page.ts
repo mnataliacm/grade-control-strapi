@@ -19,6 +19,14 @@ export class GradesPage {
     return this.gradeSvc.grades$;
   }
 
+  getTotal(){
+    var total = 0;
+    this.gradeSvc.getGrades().forEach(value => {
+      total += 1;
+    })
+    return total;
+  }
+
   onEditGrade(grade: GradeModel) {
     this.presentGradeForm(grade);
   }

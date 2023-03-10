@@ -20,6 +20,14 @@ export class TasksPage {
     return this.taskSvc._tasks$;
   }
 
+  getTotal(){
+    var total = 0;
+    this.taskSvc.getTasks().forEach(value => {
+      total += 1;
+    })
+    return total;
+  }
+
   onEditTask(task: TaskModel) {
     this.presentTaskForm(task);
   }

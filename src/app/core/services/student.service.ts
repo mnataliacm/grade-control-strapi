@@ -68,8 +68,17 @@ export class StudentService {
     });
   }
 
+  getTotal(){
+    var id = 1;
+    this.getStudents().forEach(value => {
+      id += 1;
+    })
+    return id;
+  }
+
   async createStudent(student: StudentModel){
     var _student = {
+      id: this.getTotal(),
       name: student.name,
       surname: student.surname,
       email: student.email,

@@ -11,7 +11,8 @@ export class GradeService {
 
   private _gradeSubject:BehaviorSubject<GradeModel[]> = new BehaviorSubject<GradeModel[]>([]);
   public grades$ = this._gradeSubject.asObservable();
-  
+  //id: number = this.grades$.forEach + 1;
+
   constructor(private api: ApiService) { this.refresh();
   }
 
@@ -55,9 +56,18 @@ export class GradeService {
     });
   }
 
+  getTotal(){
+    var id = 1;
+    this.getGrades().forEach(value => {
+      id += 1;
+    })
+    return id;
+  }
+
   createGrade(grade:GradeModel){
     this.api.post(`/api/grades`,{
       data:{
+        id: this.getTotal(),
         name: grade.name,
         acronym: grade.acronym
       }

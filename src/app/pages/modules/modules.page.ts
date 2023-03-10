@@ -30,6 +30,14 @@ export class ModulesPage {
   //   return this._modules.filter(s=>s.grade == grade);
   // }
 
+  getTotal(){
+    var total = 0;
+    this.moduleSvc.getModules().forEach(value => {
+      total += 1;
+    })
+    return total;
+  }
+
   onEditModule(module: ModuleModel){
     this.presentModuleForm(module);
   }
