@@ -64,7 +64,8 @@
     "delete": "Borrar",
     "close": "Cerrar",
     "cancel": "Cancelar",
-    "apply": "Aceptar"
+    "apply": "Aceptar",
+    "profile": "Perfil"
   },
   "app": {
     "line1": "Aplicación para calcular los boletines de notas.",
