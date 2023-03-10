@@ -75,7 +75,7 @@ export class StudentService {
     })
     return id;
   }
-
+  
   async createStudent(student: StudentModel){
     var _student = {
       id: this.getTotal(),
