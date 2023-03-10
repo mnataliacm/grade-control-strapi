@@ -31,11 +31,14 @@
       <ion-input type="text" placeholder="Introduce curso" formControlName="grade"></ion-input>
     </ion-item>
     <app-grade-select formControlName="grade"></app-grade-select>
-    <ion-button [disabled]="!form.valid" (click)="onSubmit()">
-      {{mode=="Edit"?"button.edit":"button.new" | translate}}
-    </ion-button>
-    <ion-button routerLink="students" color="danger" size="small">
-      {{ 'button.cancel' | translate }}
-    </ion-button>
+    <ion-grid>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-button [disabled]="!form.valid" (click)="onSubmit()">
+            {{mode=="Edit"?("button.edit" | translate):("button.new" | translate)}}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </form>
 </ion-content>
