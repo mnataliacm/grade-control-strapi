@@ -13,7 +13,7 @@ Versión de [GradeControl](https://github.com/mnataliacm/grade-control.git) usan
 * Card de los estudiantes con CRUD, pte arreglar selectables y perfil.
 * Lista de Tareas está pendiente de implementar.
 * Añado Login y creación de nuevos usuarios, mantiene sesión iniciada. 
-* Video mostrando funcionamiento Login y Registro, y cursos y modulos con relación 1:n -> [Video](https://youtu.be/y97ObtIT4bw)
+* Video mostrando funcionamiento Login - Registro, y cursos y modulos con relación 1:n -> [Video](https://youtu.be/y97ObtIT4bw)
 
 ## Vista Web
 <img src="https://user-images.githubusercontent.com/74043250/224581386-7cd9a0f7-b246-43d0-8c7a-ac316c4efbff.png" width="400" height="200"> <img src="https://user-images.githubusercontent.com/74043250/224581395-95523040-36bc-4149-9934-ad5d693202bf.png" width="400" height="200">
