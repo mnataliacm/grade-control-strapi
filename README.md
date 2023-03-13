@@ -1,8 +1,8 @@
 # grade-control-strapi
 Versión de [GradeControl](https://github.com/mnataliacm/grade-control.git) usando Strapi.
 
-* Login con almacenamiento en local
-* Además de los usados en GradeControl (excepto FullCalendar) he instalado los siguientes complementos:
+* He instalado los siguientes complementos:
+  - rxjs, moment, moment-timezone, ionicons, @ngx-translate/core @ngx-translate/http-loader
     - cordova-plugin-advanced-http, @awesome-cordova-plugins/core, @awesome-cordova-plugins/http, 
       @awesome-cordova-plugins/file, cordova-sqlite-storage, 
     - @ionic/storage-angular
@@ -13,7 +13,7 @@ Versión de [GradeControl](https://github.com/mnataliacm/grade-control.git) usan
 * Lista de módulos con CRUD, usa como docId las siglas del curso. Formulario con selectable que lee BD cursos.
 * Card de los estudiantes con CRUD, pte arreglar selectables y perfil.
 * Lista de Tareas está pendiente de implementar.
-* Añado Login y creación de nuevos usuarios, mantiene sesión iniciada. 
+* Añado Login y creación de nuevos usuarios, mantiene sesión iniciada guardadola en storage.
 * Video mostrando funcionamiento Login - Registro, y cursos y modulos con relación 1:n -> [Video](https://youtu.be/y97ObtIT4bw)
 
 ## Vista Web
